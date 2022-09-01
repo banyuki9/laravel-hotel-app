@@ -50,12 +50,7 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-
-        if (AuthService::judgeAdmin($request->input('email'))) {
-            return redirect()->intended(RouteServiceProvider::HOME);
-        } else {
-            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
-        }
+        return redirect()->intended(RouteServiceProvider::HOME);
 
     }
 }
