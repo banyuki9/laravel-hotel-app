@@ -8,17 +8,22 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Auth\AuthService;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
      *
-     * @return \Illuminate\View\View
+     * @return \Inertia\Response
      */
     public function create()
     {
-        return view('auth.login');
+        return Inertia::render('Auth/Login', [
+            'canResetPassword' => Route::has('password.request'),
+            'status' => session('status'),
+        ]);
     }
 
     /**
@@ -30,6 +35,7 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
+
         $request->session()->regenerate();
 
         if (AuthService::judgeAdmin($request->input('email'))) {
@@ -37,7 +43,6 @@ class AuthenticatedSessionController extends Controller
         } else {
             return redirect()->intended(RouteServiceProvider::HOME);
         }
-
     }
 
     /**
