@@ -23,6 +23,7 @@ class RoomsFactory extends Factory
             'room_size' => $this->faker->randomNumber(2) . ' ㎡',
             'min_capacity' => 1,
             'max_capacity' => $this->faker->randomNumber(1),
+            'bed_type' => $this->faker->realText(20),
             'facilities' => $this->faker->realText(80),
         ];
     }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('min_capacity');
             $table->integer('max_capacity');
             $table->longText('facilities');
+            $table->string('bed_type'); 
             $table->timestamps();
         });
     }
