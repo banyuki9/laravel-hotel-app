@@ -9,9 +9,9 @@ class RoomService
 {
 
   /**
-   * Get the user role 
+   * Get the room detail  
    *
-   * @return boolean
+   * @return object
    */
   public static function getRoomDetail($request)
   {
