@@ -20,6 +20,12 @@ const form = useForm({
   main_image: '',
   sub_images: [],
 });
+
+const submit = () => {
+    form.post(route('rooms.store'), {
+        onFinish: () => form.reset(),
+    })
+};
 </script>
 
 <template>
@@ -32,7 +38,7 @@ const form = useForm({
         </h2>
     </template>
 
-    <form action="" method="POST">
+    <form @submit.prevent="submit">
 
       <div class="mb-6">
         <BreezeLabel for="title" value="客室名" />
@@ -54,7 +60,7 @@ const form = useForm({
       </div>
       <div class="mb-6">
         <BreezeLabel for="bed_type" value="ベッドタイプ" />
-        <BreezeInput id="bed_type" type="text" class="mt-1 block w-full bg-gray-50" v-model="form.room_size" required autocomplete="current-password" />
+        <BreezeInput id="bed_type" type="text" class="mt-1 block w-full bg-gray-50" v-model="form.bed_type" required autocomplete="current-password" />
       </div>
       <div class="mb-6">
         <BreezeLabel for="facilities" value="その他の設備" />

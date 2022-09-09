@@ -25,8 +25,11 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardfController::class, 'index'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('dashboard');
+
+// Rooms
 Route::get('/rooms', [App\Http\Controllers\RoomsController::class, 'index'])->name('rooms.index');
 Route::get('/rooms/{id}', [App\Http\Controllers\RoomsController::class, 'show'])->name('rooms.show')->where('id', '[0-9]+');
-Route::get('/rooms/create', [App\Http\Controllers\RoomsController::class, 'create'])->name('rooms.create');
+Route::get('/rooms/create', [App\Http\Controllers\RoomsController::class, 'create'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('rooms.create');
+Route::post('/rooms', [App\Http\Controllers\RoomsController::class, 'store'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('rooms.store');
 
 require __DIR__.'/auth.php';

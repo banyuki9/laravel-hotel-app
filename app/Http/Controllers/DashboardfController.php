@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Rooms;
+use App\Models\Room;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,7 +11,7 @@ class DashboardfController extends Controller
     public function index()
     {
         return Inertia::render('Dashboard', [
-            'rooms' => Rooms::all(),
+            'rooms' => Room::all(),
         ]);
 
     }
