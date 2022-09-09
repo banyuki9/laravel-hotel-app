@@ -1,5 +1,6 @@
 <script setup>
 import Navigation from "@/Components/Nav.vue";
+import Footer from "@/Components/Footer.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 import { defineProps } from "vue";
 const props = defineProps(["title"]);
@@ -26,5 +27,7 @@ const props = defineProps(["title"]);
         <!-- /End replace -->
       </div>
     </main>
+
+    <Footer/>
   </div>
 </template>

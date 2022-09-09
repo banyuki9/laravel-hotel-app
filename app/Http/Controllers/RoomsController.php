@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Room;
 use Inertia\Inertia;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Services\Room\RoomService;
 
 class RoomsController extends Controller
 {
@@ -18,13 +19,25 @@ class RoomsController extends Controller
 
     public function show(Request $request)
     {
-        $room_id = (int) $request->route('id');
-        $room = Room::where('id', $room_id)->first();
-        if (is_null($room_id)) {
-            throw new NotFoundHttpException('存在しない客室です。');
-        }
+        $room = RoomService::getRoomDetail($request);
         return Inertia::render('Room/RoomDetail', [
             'room' => $room,
         ]);
     }
+
+    public function create()
+    {
+        return Inertia::render('Room/RoomEdit', [
+            'room' => '',
+        ]);
+    }
+
+    public function edit(Request $request)
+    {
+        $room = RoomService::getRoomDetail($request);
+        return Inertia::render('Room/RoomEdit', [
+            'room' => $room,
+        ]); 
+    }
+
 }
