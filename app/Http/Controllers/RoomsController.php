@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Room\CreateRequest;
 use App\Models\Room;
 use Inertia\Inertia;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -40,13 +41,13 @@ class RoomsController extends Controller
         ]); 
     }
 
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
         auth()->user()->rooms()->create($request->all());
         return redirect()->route('rooms.index');
     }
 
-    public function update(Request $request)
+    public function update(CreateRequest $request)
     {
         $room = RoomService::getRoomDetail($request); 
         $room->title = $request->title;

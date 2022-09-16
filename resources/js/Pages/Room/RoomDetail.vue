@@ -16,7 +16,6 @@ const destroy = () => {
   <Head title="Rooms" />
   
   <CommonLayout :title="room.title">
-    
         <h1 class="room-title text-white text-center p-28 bg-gray-600 mb-4 text-xl ">
           {{room.title}}
         </h1>

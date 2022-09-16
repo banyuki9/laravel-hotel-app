@@ -106,9 +106,9 @@ const props = defineProps(["rooms"]);
         </div>
       </div>
 
-<Pagination :links="rooms.links"/>
-
+      
     </div>
+    <Pagination :links="rooms.links" class="flex justify-center my-8"/>
   </CommonLayout>
 </template>
 
