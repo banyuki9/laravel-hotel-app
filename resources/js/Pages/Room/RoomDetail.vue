@@ -16,7 +16,7 @@ const props = defineProps(["room"]);
         
         <div class="flex justify-between mb-10">
           <div>
-            <a class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-sm mr-2 inline-block">
+            <a :href="route('rooms.edit', room.id)" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-sm mr-2 inline-block">
               編集
             </a>
               

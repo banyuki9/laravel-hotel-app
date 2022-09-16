@@ -1,6 +1,6 @@
 <script setup>
 import CommonLayout from "@/Layouts/Common.vue";
-import RegisterForm from '@/Components/Room/ResigterForm.vue'
+import RegisterForm from '@/Components/Room/Form.vue'
 import { Head, useForm, defineProps } from "@inertiajs/inertia-vue3";
 const props = defineProps(["room"]);
 
@@ -15,7 +15,7 @@ const form = useForm({
   main_image: '',
   sub_images: [],
 });
-console.log(typeof(form))
+const buttonText = "登録する"
 
 const submit = () => {
     form.post(route('rooms.store'), {
@@ -33,7 +33,7 @@ const submit = () => {
           客室登録
         </h2>
     </template>
-    <RegisterForm :form="form" @submit="submit"/>
+    <RegisterForm :form="form" @submit="submit" :button-text="buttonText"/>
   </CommonLayout>
 </template>
 

@@ -9,7 +9,8 @@ import BreezeButton from '@/Components/Button.vue';
 import { defineEmits, defineProps } from 'vue'
 
 const props = defineProps({
-  form: Object
+  form: Object,
+  buttonText: String
 })
 
 const emit = defineEmits(['submit'])
@@ -65,8 +66,8 @@ const submit = () => {
 
 
       <div class="flex justify-center mt-8">
-        <BreezeButton class="text-lg ">
-          登録する
+        <BreezeButton class="text-lg" v-text="buttonText">
+
         </BreezeButton>
       </div>
     </form>
