@@ -7,14 +7,13 @@ use App\Models\Room;
 use Inertia\Inertia;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Services\Room\RoomService;
-use Illuminate\Support\Facades\Auth;
 
 class RoomsController extends Controller
 {
     public function index()
     {
         return Inertia::render('Room/Rooms', [
-            'rooms' => Room::orderBy('created_at', 'desc')->get(),
+            'rooms' => Room::orderBy('created_at', 'desc')->paginate(9),
         ]);
     }
 
@@ -28,34 +27,25 @@ class RoomsController extends Controller
 
     public function create()
     {
-        return Inertia::render('Room/RoomEdit', [
-            'room' => '',
+        return Inertia::render('Room/RoomCreate', [
+            'room' => new Room(),
         ]);
     }
 
     public function edit(Request $request)
     {
         $room = RoomService::getRoomDetail($request);
-        return Inertia::render('Room/RoomEdit', [
+        return Inertia::render('Room/RoomCreate', [
             'room' => $room,
         ]); 
     }
 
     public function store(Request $request)
     {
-        $room = new Room();
-        $roomContents = $request->all();
-        $room->fill([
-            'user_id' => Auth::id(),
-            'title' => $roomContents['title'],
-            'description' => $roomContents['description'],
-            'room_size' => $roomContents['room_size'],
-            'min_capacity' => $roomContents['min_capacity'],
-            'max_capacity' => $roomContents['max_capacity'],
-            'bed_type' => $roomContents['bed_type'],
-            'facilities' => $roomContents['facilities'],
-        ])->save();
+        $room = auth()->user()->rooms()->create($request->all());
         return redirect()->route('rooms.index');
     }
+
+
 
 }

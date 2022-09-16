@@ -1,5 +1,6 @@
 <script setup>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import Pagination from "@/Components/Pagination.vue";
 import CommonLayout from "@/Layouts/Common.vue";
 import { Head } from "@inertiajs/inertia-vue3";
 const props = defineProps(["rooms"]);
@@ -21,7 +22,7 @@ const props = defineProps(["rooms"]);
     </template>
 
     <div class="flex flex-row flex-wrap">
-      <div class="basis-1/3 mb-5" v-for="room in rooms" :key="room.id">
+      <div class="basis-1/3 mb-5" v-for="room in rooms.data" :key="room.id">
         <div
           class="
             max-w-sm
@@ -104,6 +105,9 @@ const props = defineProps(["rooms"]);
           </div>
         </div>
       </div>
+
+<Pagination :links="rooms.links"/>
+
     </div>
   </CommonLayout>
 </template>
