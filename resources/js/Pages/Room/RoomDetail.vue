@@ -1,8 +1,15 @@
 <script setup>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import CommonLayout from "@/Layouts/Common.vue";
-import { Head } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/inertia-vue3";
 const props = defineProps(["room"]);
+const form = useForm({
+  id: props.room.id
+})
+
+const destroy = () => {
+    form.delete(route('rooms.destroy', form.id))
+};
 </script>
 
 <template>
@@ -26,9 +33,11 @@ const props = defineProps(["room"]);
           </div>
             
           <div>
-            <a class="bg-red-500 hover:bg-red-400 text-white font-semibold py-2 px-4 border  rounded shadow text-sm inline-block">
-              削除
-            </a>
+            <form @submit.prevent="destroy">
+              <button  class="bg-red-500 hover:bg-red-400 text-white font-semibold py-2 px-4 border  rounded shadow text-sm inline-block">
+                削除
+              </button>
+            </form>
           </div>
         </div>
 

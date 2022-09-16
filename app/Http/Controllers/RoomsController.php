@@ -61,4 +61,11 @@ class RoomsController extends Controller
         return redirect()->route('rooms.show', $request->route('id'));
     }
 
+    public function delete(Request $request)
+    {
+        $room = RoomService::getRoomDetail($request);
+        $room->delete();
+        return redirect()->route('rooms.index');
+    }
+
 }
