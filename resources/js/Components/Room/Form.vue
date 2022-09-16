@@ -5,7 +5,6 @@ import BreezeInputFile from '@/Components/InputFile.vue';
 import BreezeInputError from '@/Components/InputError.vue';
 import BreezeLabel from '@/Components/Label.vue';
 import BreezeButton from '@/Components/Button.vue';
-
 import { defineEmits, defineProps } from 'vue'
 
 const props = defineProps({
@@ -28,28 +27,35 @@ const submit = () => {
       <div class="mb-6">
         <BreezeLabel for="title" value="客室名" />
         <BreezeInput id="title" type="text" class="mt-1 block w-full bg-gray-50" v-model="form.title" required autocomplete="current-password" autofocus />
+        <BreezeInputError class="mt-2" :message="form.errors.title" />
       </div>
       <div class="mb-6">
         <BreezeLabel for="description" value="客室の説明" />
         <BreezeTextarea id="description" v-model="form.description"/>
+        <BreezeInputError class="mt-2" :message="form.errors.description" />
       </div>
       <div class="mb-6">
         <BreezeLabel for="room_size" value="広さ" />
         <BreezeInput id="room_size" type="text" class="mt-1 block w-full bg-gray-50" v-model="form.room_size" required autocomplete="current-password" />
+        <BreezeInputError class="mt-2" :message="form.errors.room_size" />
       </div>
       <div class="mb-6">
         <BreezeLabel for="min_capacity" value="定員" />
         <div class="flex items-center">
           <BreezeInput id="min_capacity" type="text" class="mt-1 block w-full bg-gray-50 w-24 mr-2" v-model="form.min_capacity" required autocomplete="current-password" /> - <BreezeInput type="text" class="mt-1 block w-full bg-gray-50 w-24 ml-2" v-model="form.max_capacity" required autocomplete="current-password" />
+          <BreezeInputError class="mt-2" :message="form.errors.min_capacity" />
+          <BreezeInputError class="mt-2" :message="form.errors.max_capacity" />
         </div>
       </div>
       <div class="mb-6">
         <BreezeLabel for="bed_type" value="ベッドタイプ" />
         <BreezeInput id="bed_type" type="text" class="mt-1 block w-full bg-gray-50" v-model="form.bed_type" required autocomplete="current-password" />
+        <BreezeInputError class="mt-2" :message="form.errors.bed_type" />
       </div>
       <div class="mb-6">
         <BreezeLabel for="facilities" value="その他の設備" />
         <BreezeTextarea id="facilities" v-model="form.facilities"/>
+        <BreezeInputError class="mt-2" :message="form.errors.facilities" />
       </div>
       
       <div class="mb-6">
