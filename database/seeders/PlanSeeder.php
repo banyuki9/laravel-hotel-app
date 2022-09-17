@@ -15,6 +15,6 @@ class PlanSeeder extends Seeder
      */
     public function run()
     {
-        Plan::factory()->count(10)->create();
+        Plan::factory()->count(20)->create();
     }
 }
