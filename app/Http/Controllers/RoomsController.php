@@ -8,6 +8,7 @@ use App\Models\Room;
 use Inertia\Inertia;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Services\Room\RoomService;
+use App\Services\Plan\PlanService;
 
 class RoomsController extends Controller
 {
@@ -21,8 +22,10 @@ class RoomsController extends Controller
     public function show(Request $request)
     {
         $room = RoomService::getRoomDetail($request);
+        $plans = PlanService::getRoomPlans($request);
         return Inertia::render('Room/RoomDetail', [
             'room' => $room,
+            'plans' => $plans,
         ]);
     }
 

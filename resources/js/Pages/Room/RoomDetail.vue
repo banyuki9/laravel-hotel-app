@@ -1,8 +1,9 @@
 <script setup>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
+import PlanCard from "@/Components/Plan/PlanCard.vue";
 import CommonLayout from "@/Layouts/Common.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
-const props = defineProps(["room"]);
+const props = defineProps(["room", "plans"]);
 const form = useForm({
   id: props.room.id
 })
@@ -10,6 +11,9 @@ const form = useForm({
 const destroy = () => {
     form.delete(route('rooms.destroy', form.id))
 };
+
+const reservationLink = ""
+const editLink = ""
 </script>
 
 <template>
@@ -40,7 +44,7 @@ const destroy = () => {
           </div>
         </div>
 
-        <div class="article max-w-4xl mx-auto mb-8">
+        <div class="article max-w-4xl mx-auto mb-8 leading-relaxed">
           {{room.description}}
         </div>
 
@@ -63,9 +67,17 @@ const destroy = () => {
           </dl>
         </div>
 
-  <div>
-    
-  </div>
+      <div class="mt-24 max-w-4xl mx-auto">
+        <h3 class="font-medium leading-tight text-3xl mt-0 mb-2 text-center font-bold mb-12">プラン</h3>
+
+        <div class="plan-container flex">
+
+            <PlanCard v-for="plan in plans" :key="plan.id" :plan="plan" class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2" :reservation-link="reservationLink" :edit-link="editLink" />
+
+          </div>
+          
+        </div>
+
   </CommonLayout>
 </template>
 
