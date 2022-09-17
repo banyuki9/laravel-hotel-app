@@ -46,11 +46,22 @@ const props = defineProps({
       </div>
 
     </div>
+
+    <div class="card-footer flex justify-between">
+
+      <div class="price text-lg mb-3 flex justify-end items-center ">
+        <span class="text-xs mr-3">大人/一泊</span>
+        <span class="font-semibold">¥ <span class="text-2xl ">{{plan.day_fee}}</span>円 ~</span>
+      </div>
+      <div>
         <a :href="reservationLink" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-2">
             予約する
         </a>
         <a :href="editLink" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded-lg shadow text-sm mr-2 inline-block">
             編集
         </a>
+
+      </div>
+    </div>
   </div>
 </template>
