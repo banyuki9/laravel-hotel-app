@@ -1,11 +1,19 @@
 <script setup>
-import { defineEmits, defineProps } from 'vue'
+import { ref, defineEmits, defineProps } from 'vue'
 
 const props = defineProps({
   plan: Object,
   reservationLink: String,
   editLink: String,
 })
+
+const planDetailStatus = ref(false)
+
+const showPlanDetail = () => {
+  planDetailStatus.value = (!planDetailStatus.value) ? true : false
+}
+
+
 </script>
 
 <template>
@@ -17,7 +25,7 @@ const props = defineProps({
 
     <div class="accordion mb-4" id="accordionExample">
       <div class="accordion-item bg-white border border-gray-200">
-        <h2 class="accordion-header mb-0" id="headingOne">
+        <h2 class="accordion-header mb-0" id="headingOne" @click="showPlanDetail">
           <button class="
             accordion-button
             relative
@@ -37,7 +45,7 @@ const props = defineProps({
             このプランには以下のものが含まれます
           </button>
         </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+        <div v-if="planDetailStatus" id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
           data-bs-parent="#accordionExample">
           <div class="accordion-body py-4 px-5 text-xs leading-relaxed">
             {{plan.plan_detail}}

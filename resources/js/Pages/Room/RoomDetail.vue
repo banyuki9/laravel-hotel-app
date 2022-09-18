@@ -72,7 +72,8 @@ const editLink = ""
 
         <div class="plan-container flex">
 
-            <PlanCard v-for="plan in plans" :key="plan.id" :plan="plan" class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2" :reservation-link="reservationLink" :edit-link="editLink" />
+            <PlanCard v-for="plan in plans" :key="plan.id" :plan="plan" class="plan_card p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2" :reservation-link="reservationLink" :edit-link="editLink" />
+            <PlanCard v-for="plan in plans" :key="plan.id" :plan="plan" class="plan_card p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2" :reservation-link="reservationLink" :edit-link="editLink" />
 
           </div>
           
@@ -81,3 +82,8 @@ const editLink = ""
   </CommonLayout>
 </template>
 
+<style scoped>
+.plan_card:nth-child(2n) {
+margin-left: 2rem;
+}
+</style>
