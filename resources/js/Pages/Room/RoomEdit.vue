@@ -17,10 +17,9 @@ const form = useForm({
 });
 const buttonText = "更新する"
 const update = () => {
-    form.patch(route('rooms.update', props.room.id), {
-        onFinish: () => form.reset(),
-    })
+    form.patch(route('rooms.update', props.room.id))
 };
+
 </script>
 
 <template>
@@ -33,6 +32,7 @@ const update = () => {
     </template>
 
     <EditForm :form="form" @submit="update" :button-text="buttonText"/>
+
   </CommonLayout>
 </template>
 

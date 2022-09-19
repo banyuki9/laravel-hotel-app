@@ -18,10 +18,9 @@ const showPlanDetail = () => {
 
 <template>
 
-  <div class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2">
-      <a href="#">
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{plan.title}}</h5>
-      </a>
+  <div class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 my-1 px-1 w-full md:w-1/2 lg:my-4 lg:px-4 lg:w-1/3">
+
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{plan.title}}</h5>
 
     <div class="accordion mb-4" id="accordionExample">
       <div class="accordion-item bg-white border border-gray-200">

@@ -9,6 +9,7 @@ const form = useForm({
   day_fee: '',
   holiday_fee: '',
   plan_detail: '',
+  room_id: props.room.id
 });
 const buttonText = "追加する"
 

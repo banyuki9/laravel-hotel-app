@@ -2,6 +2,7 @@
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import PlanCard from "@/Components/Plan/PlanCard.vue";
 import CommonLayout from "@/Layouts/Common.vue";
+import { ref } from "vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 const props = defineProps(["room", "plans"]);
 const form = useForm({
@@ -13,7 +14,7 @@ const destroy = () => {
 };
 
 const reservationLink = ""
-const editLink = ""
+
 </script>
 
 <template>
@@ -70,9 +71,9 @@ const editLink = ""
       <div class="mt-24 max-w-4xl mx-auto" v-if="plans.length">
         <h3 class="font-medium leading-tight text-3xl mt-0 mb-2 text-center font-bold mb-12">プラン</h3>
 
-        <div class="plan-container flex flex-wrap flex-row justify-between">
+        <div class="plan-container flex flex-wrap -mx-1 lg:-mx-2 flex-row justify-between">
 
-            <PlanCard v-for="plan in plans" :key="plan.id" :plan="plan" class="plan_card p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2 mb-4 " :reservation-link="reservationLink" :edit-link="editLink" />
+            <PlanCard v-for="plan in plans" :key="plan.id" :plan="plan" class="plan_card p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2 mb-4 " :reservation-link="reservationLink" :edit-link="`/plan/${room.id}/edit/${plan.id}`" />
 
           </div>
           

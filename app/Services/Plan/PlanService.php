@@ -15,4 +15,9 @@ class PlanService
     $room_id = (int) $request->route('id');
     return Plan::where('room_id', $room_id)->get();
   }
+
+  public static function getPlan($plan_id)
+  {
+    return Plan::where('id', $plan_id)->firstOrFail();
+  }
 }
