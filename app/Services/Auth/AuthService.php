@@ -9,7 +9,7 @@ class AuthService
 {
 
   /**
-   * Get the user role 
+   * Judge a user role 
    *
    * @return boolean
    */

@@ -20,7 +20,7 @@ class AdminUserSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => Str::random(10),
-            'email' => Str::random(10) . '@gmail.com',
+            'email' => 'admin@gmail.com',
             'password' => Hash::make('password'),
             'role' => 0,
             'name_kanji' => 'Laravel-Hotel',
