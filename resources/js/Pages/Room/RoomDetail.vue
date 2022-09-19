@@ -10,7 +10,9 @@ const form = useForm({
 })
 
 const destroy = () => {
+  if (window.confirm("本当にこの客室を削除しますか？")) {
     form.delete(route('rooms.destroy', form.id))
+  }
 };
 
 const reservationLink = ""
