@@ -27,10 +27,24 @@ class CreateRequest extends FormRequest
             'title' => 'required|max:255',
             'description' => 'required|max:1000',
             'room_size' => 'required|max:255',
-            'min_capacity' => 'required|max:255',
-            'max_capacity' => 'required|max:255',
+            'min_capacity' => 'required|max:255|lt:max_capacity',
+            'max_capacity' => 'required|max:255|gt:min_capacity',
             'bed_type' => 'required|max:255',
             'facilities' => 'required|max:1000',
+        ];
+    }
+
+
+    public function attributes()
+    {
+        return [
+            'title' => '客室名',
+            'description' => '客室の説明',
+            'room_size' => '広さ',
+            'min_capacity' => '定員最小',
+            'max_capacity' => '定員最大',
+            'bed_type' => 'ベッドタイプ',
+            'facilities' => 'その他の設備',
         ];
     }
 }

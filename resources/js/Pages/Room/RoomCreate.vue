@@ -18,9 +18,7 @@ const form = useForm({
 const buttonText = "登録する"
 
 const submit = () => {
-    form.post(route('rooms.store'), {
-        onFinish: () => form.reset(),
-    })
+    form.post(route('rooms.store'))
 };
 </script>
 
