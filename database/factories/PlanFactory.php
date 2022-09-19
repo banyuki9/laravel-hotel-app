@@ -10,7 +10,6 @@ use App\Models\Room;
  */
 class PlanFactory extends Factory
 {
-    private static int $sequence = 1;
 
     /**
      * Define the model's default state.
@@ -22,7 +21,7 @@ class PlanFactory extends Factory
         return [
             'room_id' => Room::factory(),
             'title' => $this->faker->realText(20),
-            'order' => function () { return self::$sequence++; },
+            'order' => 1,
             'day_fee' => $this->faker->randomNumber(5),
             'holiday_fee' => $this->faker->randomNumber(5),
             'plan_detail' => $this->faker->realText(100),

@@ -30,7 +30,7 @@ const editLink = ""
               編集
             </a>
               
-            <a class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 border  rounded shadow text-sm inline-block">
+            <a :href="route('plan.create', room.id)" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-4 border  rounded shadow text-sm inline-block">
               プランの追加
             </a>
           </div>
@@ -67,13 +67,12 @@ const editLink = ""
           </dl>
         </div>
 
-      <div class="mt-24 max-w-4xl mx-auto">
+      <div class="mt-24 max-w-4xl mx-auto" v-if="plans.length">
         <h3 class="font-medium leading-tight text-3xl mt-0 mb-2 text-center font-bold mb-12">プラン</h3>
 
-        <div class="plan-container flex">
+        <div class="plan-container flex flex-wrap flex-row justify-between">
 
-            <PlanCard v-for="plan in plans" :key="plan.id" :plan="plan" class="plan_card p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2" :reservation-link="reservationLink" :edit-link="editLink" />
-            <PlanCard v-for="plan in plans" :key="plan.id" :plan="plan" class="plan_card p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2" :reservation-link="reservationLink" :edit-link="editLink" />
+            <PlanCard v-for="plan in plans" :key="plan.id" :plan="plan" class="plan_card p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 basis-1/2 mb-4 " :reservation-link="reservationLink" :edit-link="editLink" />
 
           </div>
           
@@ -82,8 +81,3 @@ const editLink = ""
   </CommonLayout>
 </template>
 
-<style scoped>
-.plan_card:nth-child(2n) {
-margin-left: 2rem;
-}
-</style>

@@ -35,4 +35,9 @@ Route::get('/rooms/{id}/edit', [App\Http\Controllers\RoomsController::class, 'ed
 Route::patch('/rooms/{id}/update', [App\Http\Controllers\RoomsController::class, 'update'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('rooms.update')->where('id', '[0-9]+');
 Route::delete('/rooms/{id}', [App\Http\Controllers\RoomsController::class, 'delete'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('rooms.destroy')->where('id', '[0-9]+');
 
+// Plans
+Route::get('/plan/{id}/create', [App\Http\Controllers\PlanController::class, 'create'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('plan.create');
+Route::post('/plan/{id}', [App\Http\Controllers\PlanController::class, 'store'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('plan.store');
+
+
 require __DIR__.'/auth.php';
