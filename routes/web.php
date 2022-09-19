@@ -42,5 +42,8 @@ Route::get('/plan/{id}/edit/{plan_id}', [App\Http\Controllers\PlanController::cl
 Route::patch('/plan/{id}/update/', [App\Http\Controllers\PlanController::class, 'update'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('plan.update');
 Route::delete('/plan/{id}', [App\Http\Controllers\PlanController::class, 'delete'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('plan.destroy')->where('id', '[0-9]+');
 
+// Books
+Route::get('/book', [App\Http\Controllers\BookController::class, 'index'])->name('book.index');
+
 
 require __DIR__.'/auth.php';
