@@ -30,4 +30,14 @@ class CreateRequest extends FormRequest
             'plan_detail' => 'required|max:500',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'title' => 'プランタイトル',
+            'day_fee' => '平日料金',
+            'holiday_fee' => '休日料金',
+            'plan_detail' => 'プラン詳細',
+        ];
+    }
 }

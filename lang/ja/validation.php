@@ -153,11 +153,6 @@ return [
     |
     */
 
-    'attributes' => [
-        'room' => [
-            'title' => '客室名',
-            'description' => '客室詳細'
-        ]
-    ],
+    'attributes' => [],
 
 ];

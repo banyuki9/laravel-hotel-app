@@ -33,4 +33,18 @@ class CreateRequest extends FormRequest
             'facilities' => 'required|max:1000',
         ];
     }
+
+
+    public function attributes()
+    {
+        return [
+            'title' => '客室名',
+            'description' => '客室の説明',
+            'room_size' => '広さ',
+            'min_capacity' => '定員最小',
+            'max_capacity' => '定員最大',
+            'bed_type' => 'ベッドタイプ',
+            'facilities' => 'その他の設備',
+        ];
+    }
 }
