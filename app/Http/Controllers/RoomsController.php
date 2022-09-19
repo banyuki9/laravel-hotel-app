@@ -53,15 +53,7 @@ class RoomsController extends Controller
     public function update(CreateRequest $request)
     {
         $room = RoomService::getRoomDetail($request); 
-        $room->title = $request->title;
-        $room->description = $request->description;
-        $room->room_size = $request->room_size;
-        $room->min_capacity = $request->min_capacity;
-        $room->max_capacity = $request->max_capacity;
-        $room->bed_type = $request->bed_type;
-        $room->facilities = $request->facilities;
-        $room->save();
-
+        $room->update($request->all());
         return redirect()->route('rooms.show', $request->route('id'));
     }
 

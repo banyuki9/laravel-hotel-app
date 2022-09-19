@@ -27,8 +27,8 @@ class CreateRequest extends FormRequest
             'title' => 'required|max:255',
             'description' => 'required|max:1000',
             'room_size' => 'required|max:255',
-            'min_capacity' => 'required|max:255',
-            'max_capacity' => 'required|max:255',
+            'min_capacity' => 'required|max:255|lt:max_capacity',
+            'max_capacity' => 'required|max:255|gt:min_capacity',
             'bed_type' => 'required|max:255',
             'facilities' => 'required|max:1000',
         ];
