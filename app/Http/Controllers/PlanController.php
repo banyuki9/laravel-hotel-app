@@ -7,6 +7,7 @@ use App\Models\Plan;
 use Inertia\Inertia;
 use App\Services\Room\RoomService;
 use App\Services\Plan\PlanService;
+use App\Http\Requests\Plan\CreateRequest;
 
 class PlanController extends Controller
 {
@@ -19,7 +20,7 @@ class PlanController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
         $plan = new Plan();
         $plan->fill($request->all());
@@ -38,7 +39,7 @@ class PlanController extends Controller
         ]); 
     }
 
-    public function update(Request $request)
+    public function update(CreateRequest $request)
     {
         $plan = PlanService::getPlan($request->plan_id);
         $plan->update($request->all());
