@@ -5,6 +5,11 @@ const props = defineProps({
   room: Object,
   plans: Object,
 })
+
+const readPlanDetail = (e) => {
+  e.target.previousElementSibling.style.height = 'auto';
+  e.target.style.display = 'none'
+}
 </script>
 
 <template>
@@ -49,21 +54,24 @@ const props = defineProps({
           </div>
           <!-- ./Call to action button -->
 
-          <div class="plan_wrapper flex justify-between flex-wrap mt-6 w-full">
+          <div class="plan_wrapper flex justify-between flex-wrap mt-6 w-full ">
             <p v-if="!plans.length">予約できるプランはありません</p>
             <div class="plan block p-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700  basis-1/2 mb-4" v-for="plan in plans" :key="plan.id">
               <h5 class="mb-2 text-sm tracking-tight text-gray-900 dark:text-white font-semibold">{{plan.title}}</h5>
-              <p class="font-normal text-gray-700 dark:text-gray-400 mb-5">{{plan.plan_detail}}</p>
+              <p class="font-normal text-gray-700 dark:text-gray-400 mb-5 text-sm">
+                <span class="plan_detail">{{plan.plan_detail}}</span>
+                <span class="button mt-2 block text-right cursor-pointer text-slate-500" v-if="plan.plan_detail.length > 61" @click="readPlanDetail">もっと見る</span>
+              </p>
 
               <div class="flex items-center mt-4">
-                <a :href="reservationLink" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-2">
-                    予約する
-                </a>
                 <div class="price text-lg mb-3 flex justify-end items-center">
                   <span class="text-xs mr-3">大人/一泊</span>
                   <span class="font-semibold">¥ <span class="text-2xl ">{{plan.day_fee}}</span>円 ~</span>
                 </div>
               </div>
+              <a :href="reservationLink" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-2">
+                  予約する
+              </a>
 
             </div>
           </div>
@@ -80,3 +88,11 @@ const props = defineProps({
 </div>
 <!-- ./Container -->
 </template>
+
+<style scoped>
+.plan_detail {
+  height: 62px;
+  overflow-y: hidden;
+  display: block;
+}
+</style>
