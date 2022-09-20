@@ -2,7 +2,8 @@
 import CommonLayout from "@/Layouts/Common.vue";
 import Pagination from "@/Components/Pagination.vue";
 import BookCard from "@/Components/Book/BookCard.vue";
-import { Head } from "@inertiajs/inertia-vue3";
+import BookForm from "@/Components/Book/Form.vue";
+import { Head, useForm, defineProps } from "@inertiajs/inertia-vue3";
 const props = defineProps(["rooms", "plans"]);
 
 const getRoomPlans = (room_id) => {
@@ -14,7 +15,13 @@ const getRoomPlans = (room_id) => {
   })
   return plans;
 }
-
+const date = new Date();
+const form = useForm({
+  startDate: new Date(),
+  endDate: date.setDate(date.getDate() + 1),
+  adult: 1,
+  child: 0,
+});
 </script>
 
 <template>
@@ -28,7 +35,8 @@ const getRoomPlans = (room_id) => {
         </h2>
       </div>
     </template>
-
+    <BookForm :form="form"/>
+    
     <BookCard class="book" v-for="room in rooms.data" :key="room.id" :room="room" :plans="getRoomPlans(room.id)">
       
     </BookCard>
