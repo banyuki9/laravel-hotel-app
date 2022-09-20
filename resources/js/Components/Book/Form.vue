@@ -27,9 +27,6 @@ const setGuestNumber = () => {
   guestFormDisplay.value = false;
 }
 
-const update = (e) => {
-  console.log(e);
-}
 </script>
 
 <template>
