@@ -4,17 +4,8 @@ import Pagination from "@/Components/Pagination.vue";
 import BookCard from "@/Components/Book/BookCard.vue";
 import BookForm from "@/Components/Book/Form.vue";
 import { Head, useForm, defineProps } from "@inertiajs/inertia-vue3";
-const props = defineProps(["rooms", "plans"]);
+const props = defineProps(["rooms"]);
 
-const getRoomPlans = (room_id) => {
-  const plans = [];
-  props.plans.forEach((plan) => {
-    if (plan.room_id === room_id) {
-      plans.push(plan);
-    }
-  })
-  return plans;
-}
 const date = new Date();
 const form = useForm({
   startDate: new Date(),
@@ -37,7 +28,7 @@ const form = useForm({
     </template>
     <BookForm :form="form"/>
     
-    <BookCard class="book" v-for="room in rooms.data" :key="room.id" :room="room" :plans="getRoomPlans(room.id)">
+    <BookCard class="book" v-for="room in rooms.data" :key="room.id" :room="room" >
       
     </BookCard>
     <Pagination :links="rooms.links" class="flex justify-center my-12"/>

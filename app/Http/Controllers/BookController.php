@@ -14,8 +14,7 @@ class BookController extends Controller
     public function index()
     {
         return Inertia::render('Book/Books', [
-            'rooms' => Room::orderBy('created_at', 'desc')->paginate(10),
-            'plans' => Plan::orderBy('room_id')->get()
+            'rooms' => Room::orderBy('created_at', 'desc')->with('plans')->paginate(10),
         ]);
     }
 }
