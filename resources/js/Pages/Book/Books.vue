@@ -19,19 +19,22 @@ const form = reactive({
   start: new Date(),
   end: date.setDate(date.getDate() + 1),
   adult: 2,
-  child: 0
+  child: 0,
+  hasError: false,
 })
 
 
 watch(form, async(newValue, oldValue) => {
-  bookInformation.dateOfNights = (new Date(newValue.end) - new Date(newValue.start)) / 86400000;
-  bookInformation.termDays = [];
-  const result = await getTermDays(newValue);
-  
-  bookInformation.termDays.forEach((value) => {
-    var wDay = value.getDay();
-    if (wDay === 0 || wDay === 1) bookInformation.holidayCount=bookInformation.holidayCount+1;
-  })
+  if (!form.hasError) {
+    bookInformation.dateOfNights = (new Date(newValue.end) - new Date(newValue.start)) / 86400000;
+    bookInformation.termDays = [];
+    const result = await getTermDays(newValue);
+    
+    bookInformation.termDays.forEach((value) => {
+      var wDay = value.getDay();
+      if (wDay === 0 || wDay === 1) bookInformation.holidayCount=bookInformation.holidayCount+1;
+    })
+  }
 
 })
 
@@ -62,18 +65,20 @@ const getTermDays = (newValue) => {
         </h2>
       </div>
     </template>
-    <BookForm :form="form" />
+    <BookForm :form="form"/>
 
-    <BookCard
-      class="book"
-      v-for="room in rooms.data"
-      :key="room.id"
-      :room="room"
-      :book-information="bookInformation"
-      :customer-information="form"
-    >
-    </BookCard>
-    <Pagination :links="rooms.links" class="flex justify-center my-12" />
+    <div v-if="!form.hasError">
+      <BookCard
+        class="book"
+        v-for="room in rooms.data"
+        :key="room.id"
+        :room="room"
+        :book-information="bookInformation"
+        :customer-information="form"
+      >
+      </BookCard>
+      <Pagination :links="rooms.links" class="flex justify-center my-12" />
+    </div>
   </CommonLayout>
 
 </template>

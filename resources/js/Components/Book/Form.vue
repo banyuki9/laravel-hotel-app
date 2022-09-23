@@ -44,10 +44,18 @@ const searchRoomPlan = (startDate, endDate) => {
 
 const validateDatePickerValue = () => {
   datePickerErrorMessage.value = ""
+  props.form.hasError = false;
   const today = date.getTime();
-  if (props.form.end < props.form.start) datePickerErrorMessage.value = "チェックアウト日はチェックイン日より後の日程を選択してください。";
-  if (props.form.start < today) datePickerErrorMessage.value = "チェックイン日は本日より前の日付は選択できません。"
-  if (date.getDate() === new Date(props.form.start).getDate()) datePickerErrorMessage.value = ""
+  if (props.form.end < props.form.start) {
+    datePickerErrorMessage.value = "チェックアウト日はチェックイン日より後の日程を選択してください。"
+    props.form.hasError = true;
+  } else if (date.getDate() === new Date(props.form.start).getDate()) {
+    datePickerErrorMessage.value = ""
+    props.form.hasError = false;
+  } else if (props.form.start < today) {
+    datePickerErrorMessage.value = "チェックイン日は本日より前の日付は選択できません。"
+    props.form.hasError = true;
+  } 
 }
 
 const replaceTimeString = (time_string) => {
