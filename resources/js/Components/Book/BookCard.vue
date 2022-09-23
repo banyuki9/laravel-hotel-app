@@ -45,7 +45,6 @@ const getRoomFee = (dayFee, holidayFee) => {
             {{room.description}}
             </p>
           </div>
-          {{room.max_capacity}}
           
           <div class="w-full lg:w-1/5 mt-6 lg:mt-0 lg:px-4 text-center md:text-left">
             <a :href="route('rooms.show', room.id)" class="bg-white hover:bg-grey-darker hover:text-gray-400 border border-solid border-grey w-1/3 lg:w-full py-2 block text-center">詳細</a>
@@ -63,7 +62,7 @@ const getRoomFee = (dayFee, holidayFee) => {
               <div class="flex items-center mt-4">
                 <div class="price text-lg mb-3 flex justify-end items-center">
                   <span class="text-xs mr-3">大人 {{customerInformation.adult}} 人 /{{bookInformation.dateOfNights}}泊</span>
-                  <span class="font-semibold">¥ <span class="text-2xl ">{{getRoomFee(plan.day_fee, plan.holiday_fee)}}</span>円 ~</span>
+                  <span class="font-semibold">¥ <span class="text-2xl ">{{getRoomFee(plan.day_fee, plan.holiday_fee).toLocaleString()}}</span>円 ~</span>
                 </div>
               </div>
               <a :href="reservationLink" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-2">

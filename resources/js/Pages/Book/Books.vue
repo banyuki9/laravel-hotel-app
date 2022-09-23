@@ -25,7 +25,6 @@ const form = reactive({
 
 watch(form, async(newValue, oldValue) => {
   bookInformation.dateOfNights = (new Date(newValue.end) - new Date(newValue.start)) / 86400000;
-
   bookInformation.termDays = [];
   const result = await getTermDays(newValue);
   
