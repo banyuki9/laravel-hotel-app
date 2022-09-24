@@ -77,7 +77,7 @@ const getTermDays = (newValue) => {
         :customer-information="form"
       >
       </BookCard>
-      <Pagination :links="rooms.links" class="flex justify-center my-12" />
+
     </div>
   </CommonLayout>
 
