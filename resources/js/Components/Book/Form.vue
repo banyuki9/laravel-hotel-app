@@ -11,11 +11,9 @@ const props = defineProps({
   form: Object,
 })
 
-const adult = ref(1)
-const child = ref(0)
-
 const guestFormDisplay = ref(false)
 const date = new Date();
+const datePickerErrorMessage = ref("");
 
 const range = reactive({
   start: props.form.start,
@@ -30,7 +28,6 @@ const setGuestNumber = () => {
   guestFormDisplay.value = false;
 }
 
-const datePickerErrorMessage = ref("");
 
 const searchRoomPlan = (startDate, endDate) => {
   props.form.start = new Date(replaceTimeString(startDate)).getTime()
@@ -59,7 +56,7 @@ const validateDatePickerValue = () => {
 }
 
 const replaceTimeString = (time_string) => {
-  var res = null;
+  let res = null;
 
   res = time_string.replace( /[年|月]/g, '/');
   res = res.replace( /[時|分]/g, ':');

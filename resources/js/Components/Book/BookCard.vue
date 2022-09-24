@@ -6,7 +6,7 @@ const props = defineProps({
   bookInformation: Object,
   customerInformation: Object,
 })
-
+const maxPlanDetailLength = 61;
 const readPlanDetail = (e) => {
   e.target.previousElementSibling.style.height = 'auto';
   e.target.style.display = 'none'
@@ -56,13 +56,13 @@ const getRoomFee = (dayFee, holidayFee) => {
               <h5 class="mb-2 text-sm tracking-tight text-gray-900 dark:text-white font-semibold">{{plan.title}}</h5>
               <p class="font-normal text-gray-700 dark:text-gray-400 mb-5 text-sm">
                 <span class="plan_detail">{{plan.plan_detail}}</span>
-                <span class="button mt-2 block text-right cursor-pointer text-slate-500" v-if="plan.plan_detail.length > 61" @click="readPlanDetail">もっと見る</span>
+                <span class="button mt-2 block text-right cursor-pointer text-slate-500" v-if="plan.plan_detail.length > maxPlanDetailLength" @click="readPlanDetail">もっと見る</span>
               </p>
 
               <div class="flex items-center mt-4">
                 <div class="price text-lg mb-3 flex justify-end items-center">
                   <span class="text-xs mr-3">大人 {{customerInformation.adult}} 人 /{{bookInformation.dateOfNights}}泊</span>
-                  <span class="font-semibold">¥ <span class="text-2xl ">{{getRoomFee(plan.day_fee, plan.holiday_fee).toLocaleString()}}</span>円 ~</span>
+                  <span class="font-semibold">¥ <span class="text-2xl " v-text="getRoomFee(plan.day_fee, plan.holiday_fee).toLocaleString()"></span>円 ~</span>
                 </div>
               </div>
               <a class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-2">

@@ -31,8 +31,8 @@ watch(form, async(newValue, oldValue) => {
     const result = await getTermDays(newValue);
     
     bookInformation.termDays.forEach((value) => {
-      var wDay = value.getDay();
-      if (wDay === 0 || wDay === 1) bookInformation.holidayCount=bookInformation.holidayCount+1;
+      let weekDay = value.getDay();
+      if (weekDay === 0 || weekDay === 1) bookInformation.holidayCount=bookInformation.holidayCount+1;
     })
   }
 
