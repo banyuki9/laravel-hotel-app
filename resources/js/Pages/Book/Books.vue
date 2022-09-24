@@ -28,6 +28,7 @@ watch(form, async(newValue, oldValue) => {
   if (!form.hasError) {
     bookInformation.dateOfNights = (new Date(newValue.end) - new Date(newValue.start)) / 86400000;
     bookInformation.termDays = [];
+    bookInformation.holidayCount = 0;
     const result = await getTermDays(newValue);
     
     bookInformation.termDays.forEach((value) => {
