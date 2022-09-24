@@ -28,14 +28,13 @@ const setGuestNumber = () => {
   guestFormDisplay.value = false;
 }
 
-
 const searchRoomPlan = (startDate, endDate) => {
   props.form.start = new Date(replaceTimeString(startDate)).getTime()
   props.form.end = new Date(replaceTimeString(endDate)).getTime()
   validateDatePickerValue();
 
   if (!datePickerErrorMessage.value) {
-    Inertia.replace(route('book.index', {adult: props.form.adult, child: props.form.child, startDate: props.form.start, endDate: props.form.end}))
+    Inertia.get(route('book.index', {adult: props.form.adult, child: props.form.child, startDate: props.form.start, endDate: props.form.end}))
   }
 }
 
@@ -64,6 +63,13 @@ const replaceTimeString = (time_string) => {
 
   return res;
 }
+
+const setDate = () => {
+  if (route().params.startDate) range.start = new Date(Number(route().params.startDate));
+  if (route().params.endDate) range.end = new Date(Number(route().params.endDate));
+}
+
+setDate();
 
 </script>
 

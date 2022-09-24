@@ -4,55 +4,70 @@ import Pagination from "@/Components/Pagination.vue";
 import BookCard from "@/Components/Book/BookCard.vue";
 import BookForm from "@/Components/Book/Form.vue";
 import { Head, useForm, defineProps } from "@inertiajs/inertia-vue3";
-import { watch, reactive, ref } from "vue";
+import { watch, reactive, ref, onMounted } from "vue";
 
-const props = defineProps(["rooms"]);
-
+const props = defineProps(["rooms", "members"]);
 const date = new Date();
-const bookInformation = reactive({
-  dateOfNights: 1,
-  termDays: [],
-  holidayCount: 0,
-})
 
-const form = reactive({
+const form = useForm({
   start: new Date(),
   end: date.setDate(date.getDate() + 1),
   adult: 2,
   child: 0,
   hasError: false,
+  dateOfNights: 1,
+  termDays: [],
+  holidayCount: 0,
 })
 
-
-watch(form, async(newValue, oldValue) => {
-  if (!form.hasError) {
-    bookInformation.dateOfNights = (new Date(newValue.end) - new Date(newValue.start)) / 86400000;
-    bookInformation.termDays = [];
-    bookInformation.holidayCount = 0;
-    const result = await getTermDays(newValue);
-    
-    bookInformation.termDays.forEach((value) => {
-      let weekDay = value.getDay();
-      if (weekDay === 0 || weekDay === 1) bookInformation.holidayCount=bookInformation.holidayCount+1;
-    })
-  }
-
+onMounted( async () => {
+  setMember();
+  setNumberOfNights();
 })
 
-const getTermDays = (newValue) => {
+const setMember = () => {
+  if (route().params.adult) form.adult = Number(route().params.adult);
+  if (route().params.child) form.child = Number(route().params.child);
+}
+
+const setNumberOfNights = async() => {
+  let startDate = form.start;
+  let endDate = form.end;
+
+  if (route().params.startDate) startDate = new Date(Number(route().params.startDate));
+  if (route().params.endDate) endDate = new Date(Number(route().params.endDate));
+
+    if (!form.hasError) {
+      form.dateOfNights = (new Date(endDate) - new Date(startDate)) / 86400000;
+      form.termDays = [];
+      form.holidayCount = 0;
+      const result = await getTermDays(startDate);
+      
+      form.termDays.forEach((value) => {
+        let weekDay = value.getDay();
+        if (weekDay === 0 || weekDay === 1) form.holidayCount=form.holidayCount+1;
+      })
+    }
+}
+
+const getTermDays = (start) => {
   return new Promise(resolve => {
-    let startDate = new Date(newValue.start);
+    let startDate = new Date(start);
     let day;
-    for (let i = 0; i < bookInformation.dateOfNights; i++) {
+    for (let i = 0; i < form.dateOfNights; i++) {
       day = startDate.setDate(startDate.getDate() + 1);
-      bookInformation.termDays.push(new Date(day))
+      form.termDays.push(new Date(day))
 
-      if (i === bookInformation.dateOfNights - 1) {
-        resolve(bookInformation.termDays)
+      if (i === form.dateOfNights - 1) {
+        resolve(form.termDays)
       }
     } 
   })
 }
+
+const submit = () => {
+    form.post(route('rooms.store'))
+};
 
 </script>
 
@@ -74,8 +89,8 @@ const getTermDays = (newValue) => {
         v-for="room in rooms.data"
         :key="room.id"
         :room="room"
-        :book-information="bookInformation"
-        :customer-information="form"
+        :form="form"
+        :members="members"
       >
       </BookCard>
 

@@ -19,9 +19,13 @@ class BookController extends Controller
             $query->where('max_capacity', '>=', ($request->adult + $request->child));
         }
         $rooms = $query->latest()->with('plans')->paginate(10);
-
+        $members = [
+            'adultMember' => (int)$request->adult,
+            'childMember' => (int)$request->child,
+        ];
         return Inertia::render('Book/Books', [
             'rooms' => $rooms,
+            'members' => $members,
         ]);
     }
 }
