@@ -17,9 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('plan_id')->constrained('plans')->cascadeOnDelete();
-            $table->string('name_kanji');
-            $table->string('name_kana');
-            $table->integer('number');
             $table->longText('note');
             $table->integer('adult_number');
             $table->integer('child_number');
@@ -28,6 +25,8 @@ return new class extends Migration
             $table->boolean('checkin_status');
             $table->boolean('has_credit_card');
             $table->string('book_code', 16);
+            $table->date('checkin_at');
+            $table->date('checkout_at');
             $table->date('booked_at');
             $table->timestamps();
         });
