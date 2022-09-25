@@ -13,7 +13,7 @@ const readPlanDetail = (e) => {
 }
 const defaultAdultMember = 2;
 const defaultChildMember = 0;
-console.log(props.members);
+
 const getRoomFee = (dayFee, holidayFee) => {
   let adultMember = props.members.adultMember;
   if (!props.adultMember) adultMember = defaultAdultMember;
