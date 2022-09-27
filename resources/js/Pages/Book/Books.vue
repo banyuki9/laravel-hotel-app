@@ -2,6 +2,7 @@
 import CommonLayout from "@/Layouts/Common.vue";
 import Pagination from "@/Components/Pagination.vue";
 import BookCard from "@/Components/Book/BookCard.vue";
+import BookSearchResult from "@/Components/Book/SearchResult.vue"
 import BookForm from "@/Components/Book/Form.vue";
 import { Head, useForm, defineProps } from "@inertiajs/inertia-vue3";
 import { onMounted } from "vue";
@@ -42,6 +43,8 @@ const submit = (roomTotalAmount, planId) => {
       </div>
     </template>
     <BookForm :form="form"/>
+
+    <BookSearchResult v-if="!form.hasError" :form="form"/>
 
     <div v-if="!form.hasError">
       <BookCard
