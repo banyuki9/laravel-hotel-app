@@ -4,29 +4,27 @@ import { ref, defineEmits, defineProps } from 'vue'
 const props = defineProps({
   room: Object,
   form: Object,
-  members: Object,
+  guests: Object,
 })
 const maxPlanDetailLength = 61;
 const readPlanDetail = (e) => {
   e.target.previousElementSibling.style.height = 'auto';
   e.target.style.display = 'none'
 }
-const defaultAdultMember = 2;
-const defaultChildMember = 0;
 
 const getRoomFee = (dayFee, holidayFee) => {
-  let adultMember = props.members.adultMember;
-  if (!props.adultMember) adultMember = defaultAdultMember;
-
   if (props.form.holidayCount) {
     const dayCount = props.form.dateOfNights - props.form.holidayCount;
-    return ((dayFee * dayCount) + (holidayFee * props.form.holidayCount)) * adultMember ;
+    return ((dayFee * dayCount) + (holidayFee * props.form.holidayCount)) * props.guests.adult ;
   } else { 
-    return (dayFee * props.form.dateOfNights) * adultMember;
+    return (dayFee * props.form.dateOfNights) * props.guests.adult;
   }
 }
 
-
+const emit = defineEmits(['registerBookData'])
+const registerBookData = (roomTotalAmount, planId) => {
+  emit('registerBookData', roomTotalAmount, planId)
+}
 </script>
 
 <template>
@@ -70,19 +68,16 @@ const getRoomFee = (dayFee, holidayFee) => {
                 <div class="price text-lg mb-1 flex justify-end items-center">
                   <span class="text-xs mr-3">
                     大人 
-                    <span v-if="members.adultMember">{{members.adultMember}}</span>
-                    <span v-else>{{defaultAdultMember}}</span> 
-                  人, 子供
-                  <span v-if="members.childMember">{{members.childMember}}</span>
-                  <span v-else>{{defaultChildMember}}</span> 人
-                     /{{form.dateOfNights}}泊</span>
+                    <span>{{guests.adult}}</span> 人, 子供
+                  <span>{{guests.child}}</span> 人
+                      /{{form.dateOfNights}}泊</span>
                     </div>
                   </div>
                   <div>
                     <div class="font-semibold text-right">¥ <span class="text-2xl " v-text="getRoomFee(plan.day_fee, plan.holiday_fee).toLocaleString()"></span>円 ~</div>
                   </div>
 
-              <form class="mt-4">
+              <form class="mt-4" @submit.prevent="registerBookData(getRoomFee(plan.day_fee, plan.holiday_fee), plan.id)">
                 <button class="flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-2 w-full">
                   <span class="block text-center w-full">
                     予約する
