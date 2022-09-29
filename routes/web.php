@@ -48,6 +48,7 @@ Route::get('/book/create', [App\Http\Controllers\BookController::class, 'create'
 Route::post('/book/store-book-data', [App\Http\Controllers\BookController::class, 'storeBookData'])->middleware(['auth', 'verified'])->name('book.store-book-data');
 Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'createBookPayment'])->name('book.payment');
 Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'storeCustomerData'])->name('book.store-customer-data');
+Route::post('/book', [App\Http\Controllers\StripePaymentsController::class, 'payment'])->name('book.store-payment');
 
 
 require __DIR__.'/auth.php';
