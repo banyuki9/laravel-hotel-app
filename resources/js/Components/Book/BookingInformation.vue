@@ -22,6 +22,18 @@ const getDate = (datetime) => {
         </dd>
       </dl>
       <dl class="mb-4">
+        <dt class="font-semibold text-gray-600 text-xs">ベッドタイプ</dt>
+        <dd>
+          {{ room.bed_type }}
+        </dd>
+      </dl>
+      <dl class="mb-4">
+        <dt class="font-semibold text-gray-600 text-xs">その他設備</dt>
+        <dd>
+          {{ room.facilities }}
+        </dd>
+      </dl>
+      <dl class="mb-4">
         <dt class="font-semibold text-gray-600 text-xs">プラン</dt>
         <dd>
           {{ plan.title }}

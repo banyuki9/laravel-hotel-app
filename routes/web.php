@@ -46,6 +46,8 @@ Route::delete('/plan/{id}', [App\Http\Controllers\PlanController::class, 'delete
 Route::get('/book', [App\Http\Controllers\BookController::class, 'index'])->name('book.index');
 Route::get('/book/create', [App\Http\Controllers\BookController::class, 'create'])->name('book.create');
 Route::post('/book/store-book-data', [App\Http\Controllers\BookController::class, 'storeBookData'])->middleware(['auth', 'verified'])->name('book.store-book-data');
+Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'createBookPayment'])->name('book.payment');
+Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'storeCustomerData'])->name('book.store-customer-data');
 
 
 require __DIR__.'/auth.php';

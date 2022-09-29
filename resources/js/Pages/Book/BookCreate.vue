@@ -16,6 +16,12 @@ const form = useForm({
   number: user.number ? user.number : "",
   note: ""
 })
+
+
+const submit = () => {
+  form.post(route('book.store-customer-data'))
+};
+
 </script>
 
 <template>
@@ -35,7 +41,7 @@ const form = useForm({
 
     <BookFormLayout>
       <template #form>
-        <CustomerInformationForm :form="form" />
+        <CustomerInformationForm :form="form" @submit="submit"/>
       </template>
 
       <template #information>

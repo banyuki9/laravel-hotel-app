@@ -63,4 +63,26 @@ class BookController extends Controller
             'room' => $plan->room
         ]);
     }
+
+    public function storeCustomerData(Request $request)
+    {
+        $customerData = [
+            'name_kanji' => $request->name_kanji,
+            'name_kana' => $request->name_kana,
+            'number' => $request->number,
+            'note' => $request->note,
+        ];
+        $request->session()->put('customerData', $customerData);
+        return redirect()->route('book.payment');
+    }
+
+    public function createBookPayment(Request $request)
+    {
+        $book = $request->session()->get('book');
+        $plan = PlanService::getPlan($book['planId']);
+        return Inertia::render('Book/BookPayment', [
+            'plan' => $plan,
+            'room' => $plan->room
+        ]); 
+    }
 }
