@@ -3,7 +3,7 @@ import CommonLayout from "@/Layouts/Common.vue";
 import Pagination from "@/Components/Pagination.vue";
 import BookCard from "@/Components/Book/BookCard.vue";
 import BookSearchResult from "@/Components/Book/SearchResult.vue"
-import BookForm from "@/Components/Book/Form.vue";
+import BookForm from "@/Components/Book/SearchForm.vue";
 import { Head, useForm, defineProps } from "@inertiajs/inertia-vue3";
 import { onMounted } from "vue";
 

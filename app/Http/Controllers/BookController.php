@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\Room\RoomService;
 use App\Services\Plan\PlanService;
 use App\Models\Room;
 use App\Models\Book;
@@ -50,11 +49,18 @@ class BookController extends Controller
         $request->session()->put('book', $book);
         return redirect()->route('book.create');
     }
-
+    
     public function create(Request $request) 
     {
+        if (empty($request->session()->get('book'))) {
+            return redirect()->route('book.index');
+        }
+        $book = $request->session()->get('book');
+        $plan = PlanService::getPlan($book['planId']);
+
         return Inertia::render('Book/BookCreate', [
-            'book' => $request->session()->get('book'),
+            'plan' => $plan,
+            'room' => $plan->room
         ]);
     }
 }
