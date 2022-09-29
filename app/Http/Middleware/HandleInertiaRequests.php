@@ -40,6 +40,8 @@ class HandleInertiaRequests extends Middleware
             ],
             'book' => $request->session()->get('book'),
             'customerData' => $request->session()->get('customerData'),
+            'stripeKey' => env('STRIPE_KEY'),
+            
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
                     'location' => $request->url(),

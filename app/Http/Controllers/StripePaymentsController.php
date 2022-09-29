@@ -12,13 +12,14 @@ class StripePaymentsController extends Controller
 {
     public function payment(Request $request)
     {
+        // dd($request->stripeData['id']);
         try {
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
 
             $customer = Customer::create(array(
                 'email' => Auth::user()->email,
-                'description' => 'My First Test Customer (created for API docs at https://www.stripe.com/docs/api)',
-                'source' => $request->stripeToken,
+                'description' => 'ホテルのご予約',
+                'source' => $request->stripeData['id'],
             ));
 
             $charge = Charge::create(array(
