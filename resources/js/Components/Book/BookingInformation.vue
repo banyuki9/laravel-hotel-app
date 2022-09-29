@@ -48,7 +48,7 @@ const getDate = (datetime) => {
       </dl>
       <dl class="mb-4">
         <dt class="font-semibold text-gray-600 text-xs">ご利用人数</dt>
-        <dd>2名様 (大人{{ book.adult }}人, 子供{{ book.child }}人)</dd>
+        <dd>{{Number(book.adult) + Number(book.child)}}名様 (大人{{ book.adult }}人, 子供{{ book.child }}人)</dd>
       </dl>
     </div>
 
