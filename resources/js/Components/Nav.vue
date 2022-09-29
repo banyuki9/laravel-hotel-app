@@ -39,7 +39,7 @@ const toggleMenu = () => {
               </a>
 
               <a
-                href="#"
+                :href="route('book.index')"
                 class="
                   text-gray-300
                   hover:bg-gray-700 hover:text-white
