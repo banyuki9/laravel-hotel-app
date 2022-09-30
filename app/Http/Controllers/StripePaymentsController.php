@@ -6,34 +6,48 @@ use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\Customer;
 use Stripe\Charge;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use App\Services\Book\BookService;
+use App\Services\Auth\AuthService;
+use Inertia\Inertia;
 
 class StripePaymentsController extends Controller
 {
-    public function payment(Request $request)
+    public function payment(Request $request, BookService $bookService, AuthService $authService)
     {
-        // dd($request->stripeData['id']);
+        
         try {
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
-
+            
             $customer = Customer::create(array(
                 'email' => Auth::user()->email,
                 'description' => 'ホテルのご予約',
                 'source' => $request->stripeData['id'],
             ));
-
+            
             $charge = Charge::create(array(
                 'customer' => $customer->id,
-                'amount' => 2000,
+                'amount' => $request->session()->get('book')['roomTotalAmount'],
                 'currency' => 'jpy',
             ));
+            
+            $book_code = $bookService->insertBookData($request, $request->stripeData['id'], $request->hasCreditCard);
+            $authService->updateCustomerUserData($request);
+            $this->deleteSessionData($request);
 
-            dd($charge);
-            return redirect()->route('book.complete');
+            return Inertia::render('Book/BookComplete', [
+                'book_code' => $book_code,
+            ]); 
+
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
 
+    public function deleteSessionData($request) 
+    {
+        $request->session()->forget('book');
+        $request->session()->forget('customerData');
+    }
 
 }

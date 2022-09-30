@@ -10,6 +10,7 @@ use Carbon\CarbonPeriod;
 class Book extends Model
 {
     use HasFactory;
+    protected $fillable = ['user_id', 'plan_id', 'note', 'adult_number', 'child_number', 'total_amount', 'stripe_id', 'checkin_status', 'has_credit_card', 'book_code', 'checkin_at', 'checkout_at', 'booked_at'];
 
     public static function getTermDays($from, $to)
     {

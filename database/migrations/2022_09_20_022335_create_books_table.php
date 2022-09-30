@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('plan_id')->constrained('plans')->cascadeOnDelete();
-            $table->longText('note');
+            $table->longText('note')->nullable(true);
             $table->integer('adult_number');
             $table->integer('child_number');
             $table->integer('total_amount');

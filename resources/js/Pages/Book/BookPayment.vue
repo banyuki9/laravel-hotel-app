@@ -12,6 +12,7 @@ const book = usePage().props.value.book
 
 const form = useForm({
   stripeData: {},
+  hasCreditCard: true
 });
 
 const stripe = Stripe(usePage().props.value.stripeKey);

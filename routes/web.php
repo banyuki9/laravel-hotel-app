@@ -49,6 +49,7 @@ Route::post('/book/store-book-data', [App\Http\Controllers\BookController::class
 Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'createBookPayment'])->name('book.payment');
 Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'storeCustomerData'])->name('book.store-customer-data');
 Route::post('/book', [App\Http\Controllers\StripePaymentsController::class, 'payment'])->name('book.store-payment');
+Route::post('/book/complete', [App\Http\Controllers\StripePaymentsController::class, 'payment'])->name('book.complete');
 
 
 require __DIR__.'/auth.php';

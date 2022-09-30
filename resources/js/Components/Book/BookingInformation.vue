@@ -1,7 +1,6 @@
 <script setup>
 import { defineProps } from "@inertiajs/inertia-vue3";
 const props = defineProps(["plan", "room", "book"]);
-console.log(new Date(props.book.start));
 
 const getDate = (datetime) => {
   let date = new Date(datetime);
