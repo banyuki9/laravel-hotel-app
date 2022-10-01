@@ -3,7 +3,7 @@ import CommonLayout from "@/Layouts/Common.vue";
 import Pagination from "@/Components/Pagination.vue";
 import BookCard from "@/Components/Book/BookCard.vue";
 import BookSearchResult from "@/Components/Book/SearchResult.vue"
-import BookForm from "@/Components/Book/SearchForm.vue";
+import SearchForm from "@/Components/Book/SearchForm.vue";
 import { Head, useForm, defineProps } from "@inertiajs/inertia-vue3";
 import { onMounted } from "vue";
 
@@ -11,23 +11,26 @@ const props = defineProps(["rooms", "guests", "start", "end", "termDays", "holid
 const date = new Date();
 
 const form = useForm({
-  start: props.start,
-  end: props.end,
+  startDate: props.start,
+  endDate: props.end,
   adult: props.guests.adult,
   child: props.guests.child,
-  hasError: false,
+})
+
+const storeBookDataForm = useForm({
+  startDate: props.start,
+  endDate: props.end,
+  adult: props.guests.adult,
+  child: props.guests.child, 
   dateOfNights: props.termDays.length - 1,
-  termDays: props.termDays.length,
-  holidayCount: props.holidaysCount,
   roomTotalAmount: 0,
   planId: "",
 })
 
-
 const submit = (roomTotalAmount, planId) => {
-  form.roomTotalAmount = roomTotalAmount
-  form.planId = planId;
-  form.post(route('book.store-book-data'))
+  storeBookDataForm.roomTotalAmount = roomTotalAmount
+  storeBookDataForm.planId = planId;
+  storeBookDataForm.post(route('book.store-book-data'))
 };
 
 </script>
@@ -42,7 +45,7 @@ const submit = (roomTotalAmount, planId) => {
         </h2>
       </div>
     </template>
-    <BookForm :form="form"/>
+    <SearchForm :form="form"/>
 
     <BookSearchResult v-if="!form.hasError" :form="form"/>
 
@@ -53,6 +56,8 @@ const submit = (roomTotalAmount, planId) => {
         :key="room.id"
         :room="room"
         :form="form"
+        :date-of-nights="termDays.length - 1"
+        :holiday-count="holidaysCount"
         :guests="guests"
         @register-book-data="submit"
       >

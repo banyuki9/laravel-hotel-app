@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\Book\indexRequest;
 use App\Services\Plan\PlanService;
 use App\Models\Room;
 use App\Models\Book;
@@ -12,8 +13,9 @@ use App\Services\Book\BookService;
 
 class BookController extends Controller
 {
-    public function index(Request $request)
+    public function index(indexRequest $request)
     {
+        // dd($request->adult);
         $query = Room::query();
 
         $termDays = Book::getTermDays($request->startDate, $request->endDate);
@@ -28,8 +30,8 @@ class BookController extends Controller
         return Inertia::render('Book/Books', [
             'rooms' => $rooms,
             'guests' => $guests,
-            'start' => $request->startDate ? Carbon::createFromTimestamp($request->startDate / 1000) : Carbon::today(),
-            'end' => $request->endDate ? Carbon::createFromTimestamp($request->endDate / 1000) : Carbon::tomorrow(),
+            'start' => $request->startDate ? Carbon::parse($request->startDate) : Carbon::today(),
+            'end' => $request->endDate ? Carbon::parse($request->endDate) : Carbon::tomorrow(),
             'termDays' => $termDays,
             'holidaysCount' => $holidaysCount,
         ]);
@@ -39,8 +41,8 @@ class BookController extends Controller
     {
         $book = [
             'planId' => $request->planId,
-            'start' => $request->start,
-            'end' => $request->end,
+            'start' => $request->startDate,
+            'end' => $request->endDate,
             'adult' => $request->adult,
             'child' => $request->child,
             'dateOfNights' => $request->dateOfNights,

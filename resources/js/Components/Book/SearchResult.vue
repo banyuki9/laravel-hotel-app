@@ -5,7 +5,6 @@ const props = defineProps(["form"]);
 const getStringFromDate = (date) => {
   date = new Date(date);
   var year_str = date.getFullYear();
-  //月だけ+1すること
   var month_str = 1 + date.getMonth();
   var day_str = date.getDate();
   
@@ -24,8 +23,8 @@ const getStringFromDate = (date) => {
 
     <ul>
       <li>
-        チェックイン日: {{ getStringFromDate(form.start) }}, チェックアウト日:
-        {{ getStringFromDate(form.end) }}
+        チェックイン日: {{ getStringFromDate(form.startDate) }}, チェックアウト日:
+        {{ getStringFromDate(form.endDate) }}
       </li>
       <li>
         大人 {{ route().params.adult ? route().params.adult : 2 }}人, 子供

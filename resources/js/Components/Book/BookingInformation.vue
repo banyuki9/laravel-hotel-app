@@ -2,11 +2,18 @@
 import { defineProps } from "@inertiajs/inertia-vue3";
 const props = defineProps(["plan", "room", "book"]);
 
-const getDate = (datetime) => {
-  let date = new Date(datetime);
-  return (
-    date.getFullYear() + "年" + date.getMonth() + "月" + date.getDate() + "日"
-  );
+const getStringFromDate = (date) => {
+  date = new Date(date);
+  var year_str = date.getFullYear();
+  var month_str = 1 + date.getMonth();
+  var day_str = date.getDate();
+  
+  let format_str = 'YYYY年MM月DD日';
+  format_str = format_str.replace(/YYYY/g, year_str);
+  format_str = format_str.replace(/MM/g, month_str);
+  format_str = format_str.replace(/DD/g, day_str);
+  
+  return format_str;
 };
 </script>
 
@@ -44,13 +51,13 @@ const getDate = (datetime) => {
       <dl class="mb-4">
         <dt class="font-semibold text-gray-600 text-xs">チェックイン日</dt>
         <dd>
-          {{ getDate(book.start) }}
+          {{ getStringFromDate(book.start) }}
         </dd>
       </dl>
       <dl class="mb-4">
         <dt class="font-semibold text-gray-600 text-xs">チェックアウト日</dt>
         <dd>
-          {{ getDate(book.end) }}
+          {{ getStringFromDate(book.end) }}
         </dd>
       </dl>
       <dl class="mb-4">

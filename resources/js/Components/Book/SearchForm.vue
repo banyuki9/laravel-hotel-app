@@ -13,10 +13,11 @@ const props = defineProps({
 const guestFormDisplay = ref(false)
 const date = new Date();
 const datePickerErrorMessage = ref("");
+console.log(props.form.startDate);
 
 const range = reactive({
-  start: props.form.start,
-  end: props.form.end,
+  start: new Date(props.form.startDate),
+  end: new Date(props.form.endDate),
 });
 
 const showGuestForm = () => {
@@ -28,29 +29,9 @@ const setGuestNumber = () => {
 }
 
 const searchRoomPlan = (startDate, endDate) => {
-  props.form.start = new Date(replaceTimeString(startDate)).getTime()
-  props.form.end = new Date(replaceTimeString(endDate)).getTime()
-  validateDatePickerValue();
-
-  if (!datePickerErrorMessage.value) {
-    Inertia.get(route('book.index', {adult: props.form.adult, child: props.form.child, startDate: props.form.start, endDate: props.form.end}))
-  }
-}
-
-const validateDatePickerValue = () => {
-  datePickerErrorMessage.value = ""
-  props.form.hasError = false;
-  const today = date.getTime();
-  if (props.form.end < props.form.start) {
-    datePickerErrorMessage.value = "チェックアウト日はチェックイン日より後の日程を選択してください。"
-    props.form.hasError = true;
-  } else if (date.getDate() === new Date(props.form.start).getDate()) {
-    datePickerErrorMessage.value = ""
-    props.form.hasError = false;
-  } else if (props.form.start < today) {
-    datePickerErrorMessage.value = "チェックイン日は本日より前の日付は選択できません。"
-    props.form.hasError = true;
-  } 
+  props.form.startDate = new Date(replaceTimeString(startDate))
+  props.form.endDate = new Date(replaceTimeString(endDate))
+  props.form.get(route('book.index'))
 }
 
 const replaceTimeString = (time_string) => {
@@ -63,12 +44,6 @@ const replaceTimeString = (time_string) => {
   return res;
 }
 
-const setDate = () => {
-  if (route().params.startDate) range.start = new Date(Number(route().params.startDate));
-  if (route().params.endDate) range.end = new Date(Number(route().params.endDate));
-}
-
-setDate();
 
 </script>
 
@@ -95,7 +70,8 @@ setDate();
                 class="border px-2 py-1 w-40 rounded focus:outline-none focus:border-indigo-300"
               />
             </div>
-            <SearchFormError class="mt-2" :message="datePickerErrorMessage" />
+
+            <!-- <SearchFormError class="mt-2" :message="form.errors" /> -->
           </div>
 
           <div class="relative ml-4">

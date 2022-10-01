@@ -14,8 +14,8 @@ class Book extends Model
 
     public static function getTermDays($from, $to)
     {
-        $start = $from ? Carbon::createFromTimestamp($from / 1000) : today();
-        $end = $to ? Carbon::createFromTimestamp($to / 1000) : Carbon::tomorrow();
+        $start = $from ? Carbon::parse($from) : today();
+        $end = $to ? Carbon::parse($to) : Carbon::tomorrow();
 
         return collect(CarbonPeriod::create($start, $end));
     }

@@ -3,8 +3,9 @@ import { ref, defineEmits, defineProps } from 'vue'
 
 const props = defineProps({
   room: Object,
-  form: Object,
   guests: Object,
+  dateOfNights: Number,
+  holidayCount: Number,
 })
 const maxPlanDetailLength = 61;
 const readPlanDetail = (e) => {
@@ -13,11 +14,12 @@ const readPlanDetail = (e) => {
 }
 
 const getRoomFee = (dayFee, holidayFee) => {
-  if (props.form.holidayCount) {
-    const dayCount = props.form.dateOfNights - props.form.holidayCount;
-    return ((dayFee * dayCount) + (holidayFee * props.form.holidayCount)) * props.guests.adult ;
+
+  if (props.holidayCount) {
+    const dayCount = props.dateOfNights - props.holidayCount;
+    return ((dayFee * dayCount) + (holidayFee * props.holidayCount)) * props.guests.adult ;
   } else { 
-    return (dayFee * props.form.dateOfNights) * props.guests.adult;
+    return (dayFee * props.dateOfNights) * props.guests.adult;
   }
 }
 
@@ -70,7 +72,7 @@ const registerBookData = (roomTotalAmount, planId) => {
                     大人 
                     <span>{{guests.adult}}</span> 人, 子供
                   <span>{{guests.child}}</span> 人
-                      /{{form.dateOfNights}}泊</span>
+                      /{{dateOfNights}}泊</span>
                     </div>
                   </div>
                   <div>
