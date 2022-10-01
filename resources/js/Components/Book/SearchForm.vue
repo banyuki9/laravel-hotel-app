@@ -13,7 +13,6 @@ const props = defineProps({
 const guestFormDisplay = ref(false)
 const date = new Date();
 const datePickerErrorMessage = ref("");
-console.log(props.form.startDate);
 
 const range = reactive({
   start: new Date(props.form.startDate),

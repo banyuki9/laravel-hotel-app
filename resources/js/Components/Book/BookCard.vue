@@ -14,9 +14,12 @@ const readPlanDetail = (e) => {
 }
 
 const getRoomFee = (dayFee, holidayFee) => {
-
-  if (props.holidayCount) {
-    const dayCount = props.dateOfNights - props.holidayCount;
+  let dayCount;
+  if (props.dateOfNights <= props.holidayCount) {
+    dayCount = props.holidayCount;
+   return (dayFee * props.holidayCount) * props.guests.adult; 
+  } else if (props.holidayCount) {
+    dayCount = props.dateOfNights - props.holidayCount;
     return ((dayFee * dayCount) + (holidayFee * props.holidayCount)) * props.guests.adult ;
   } else { 
     return (dayFee * props.dateOfNights) * props.guests.adult;
