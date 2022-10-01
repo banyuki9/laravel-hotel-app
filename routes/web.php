@@ -22,7 +22,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('top');
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardfController::class, 'index'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('dashboard');
 
@@ -49,7 +49,7 @@ Route::post('/book/store-book-data', [App\Http\Controllers\BookController::class
 Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'createBookPayment'])->name('book.payment');
 Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'storeCustomerData'])->name('book.store-customer-data');
 Route::post('/book', [App\Http\Controllers\StripePaymentsController::class, 'payment'])->name('book.store-payment');
-Route::post('/book/complete', [App\Http\Controllers\StripePaymentsController::class, 'payment'])->name('book.complete');
+Route::get('/book/complete/{id}', [App\Http\Controllers\BookController::class, 'complete'])->name('book.complete');
 
 
 require __DIR__.'/auth.php';

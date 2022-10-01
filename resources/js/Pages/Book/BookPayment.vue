@@ -52,7 +52,14 @@ const backPage = () => {
 <template>
   <Head title="お支払い"/>
   <CommonLayout title="ご予約">
-
+    <template #header>
+      <div class="flex justify-between items-center">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+          ご予約
+        </h2>
+      </div>
+    </template>
+    
     <BookFormLayout>
       <template #form>
 

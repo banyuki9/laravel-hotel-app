@@ -9,29 +9,29 @@ use Illuminate\Support\Facades\Auth;
 
 class BookService
 {
-  public function insertBookData(Request $request, $stripe_id, $has_credit_card)
+  public function insertBookData(Request $request)
   {
     $book = $request->session()->get('book');
     $customer_data = $request->session()->get('customerData');
     $book_code = $this->createBookCode();
 
-    Book::create([
+    $book_data = Book::create([
       'user_id' => Auth::id(),
       'plan_id' => $book['planId'],
       'note' => $customer_data['note'],
       'adult_number' => $book['adult'],
       'child_number' => $book['child'],
       'total_amount' => $book['roomTotalAmount'],
-      'stripe_id' => $stripe_id,
+      'stripe_id' => $request->stripeData['id'],
       'checkin_status' => false,
-      'has_credit_card' => $has_credit_card,
+      'has_credit_card' => $request->hasCreditCard,
       'book_code' => $book_code,
       'checkin_at' => Carbon::parse($book['start']),
       'checkout_at' => Carbon::parse($book['end']),
       'booked_at' => date("Y/m/d H:i:s")
     ]);
 
-    return $book_code;
+    return $book_data;
   }
 
   public function createBookCode()
@@ -45,5 +45,10 @@ class BookService
       }
     }
     return $book_code;
+  }
+
+  public static function getBookData($book_id)
+  {
+    return Book::where('id', $book_id)->where('user_id', Auth::id())->firstOrFail();
   }
 }

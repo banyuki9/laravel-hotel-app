@@ -8,6 +8,7 @@ use App\Models\Room;
 use App\Models\Book;
 use Inertia\Inertia;
 use \Carbon\Carbon;
+use App\Services\Book\BookService;
 
 class BookController extends Controller
 {
@@ -84,5 +85,14 @@ class BookController extends Controller
             'plan' => $plan,
             'room' => $plan->room
         ]); 
+    }
+
+    public function complete(Request $request)
+    {
+        $book = BookService::getBookData($request->route('id'));
+
+        return Inertia::render('Book/BookComplete', [
+            'book' => $book,
+        ]);  
     }
 }

@@ -31,13 +31,11 @@ class StripePaymentsController extends Controller
                 'currency' => 'jpy',
             ));
             
-            $book_code = $bookService->insertBookData($request, $request->stripeData['id'], $request->hasCreditCard);
+            $book_data = $bookService->insertBookData($request);
             $authService->updateCustomerUserData($request);
             $this->deleteSessionData($request);
 
-            return Inertia::render('Book/BookComplete', [
-                'book_code' => $book_code,
-            ]); 
+            return redirect()->route('book.complete', $book_data->id);
 
         } catch (Exception $e) {
             return $e->getMessage();

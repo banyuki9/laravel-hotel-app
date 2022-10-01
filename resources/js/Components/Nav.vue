@@ -49,7 +49,7 @@ const toggleMenu = () => {
                   text-sm
                   font-medium
                 "
-                >予約一覧</a
+                >空室検索</a
               >
 
               <a
