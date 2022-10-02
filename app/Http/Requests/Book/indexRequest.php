@@ -24,7 +24,7 @@ class indexRequest extends FormRequest
      */
     public function rules()
     {
-        $today = Carbon::today();
+        $today = Carbon::today()->format('Y/m/d');
         return [
             'startDate' => 'sometimes|date|after_or_equal:'.$today,
             'endDate' => 'sometimes|date|after:startDate',
