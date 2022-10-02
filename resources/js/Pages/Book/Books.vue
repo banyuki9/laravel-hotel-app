@@ -33,6 +33,14 @@ const submit = (roomTotalAmount, planId) => {
   storeBookDataForm.post(route('book.store-book-data'))
 };
 
+const isEmptyFormErrors = (obj) => {
+  for(let i in obj){
+    return false;
+  }
+  return true;
+}
+
+
 </script>
 
 <template>
@@ -47,9 +55,9 @@ const submit = (roomTotalAmount, planId) => {
     </template>
     <SearchForm :form="form"/>
 
-    <BookSearchResult v-if="!form.hasError" :form="form"/>
+    <BookSearchResult v-if="isEmptyFormErrors(form.errors)" :form="form"/>
 
-    <div v-if="!form.hasError">
+    <div v-if="isEmptyFormErrors(form.errors)">
       <BookCard
         class="book"
         v-for="room in rooms.data"

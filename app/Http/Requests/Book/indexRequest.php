@@ -27,9 +27,20 @@ class indexRequest extends FormRequest
         $today = Carbon::today();
         return [
             'startDate' => 'sometimes|date|after_or_equal:'.$today,
-            'endDate' => 'sometimes|date|before:startDate',
-            'adult' => 'sometimes|numeric',
-            'child' => 'sometimes|numeric'
+            'endDate' => 'sometimes|date|after:startDate',
+            'adult' => 'sometimes|numeric|min:1',
+            'child' => 'sometimes|numeric|min:0'
+        ];
+    }
+
+
+    public function attributes()
+    {
+        return [
+            'startDate' => 'チェックイン日',
+            'endDate' => 'チェックアウト日',
+            'adult' => '大人',
+            'child' => '子供',
         ];
     }
 }

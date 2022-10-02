@@ -30,7 +30,9 @@ const setGuestNumber = () => {
 const searchRoomPlan = (startDate, endDate) => {
   props.form.startDate = new Date(replaceTimeString(startDate))
   props.form.endDate = new Date(replaceTimeString(endDate))
-  props.form.get(route('book.index'))
+  props.form.get(route('book.index'), {
+    preserveState: true,
+  })
 }
 
 const replaceTimeString = (time_string) => {
@@ -60,23 +62,23 @@ const replaceTimeString = (time_string) => {
               <input
               :value="inputValue.start"
               v-on="inputEvents.start"
-                id="startDate"
-                class="border px-2 py-1 w-40 rounded focus:outline-none focus:border-indigo-300 mr-2"
+              id="startDate"
+              class="border px-2 py-1 w-40 rounded focus:outline-none focus:border-indigo-300 mr-2"
               />
               <input
-                v-model="inputValue.end"
-                id="endDate"
-                class="border px-2 py-1 w-40 rounded focus:outline-none focus:border-indigo-300"
+              :value="inputValue.end"
+              v-on="inputEvents.end"
+              id="endDate"
+              class="border px-2 py-1 w-40 rounded focus:outline-none focus:border-indigo-300"
               />
             </div>
-
-            <!-- <SearchFormError class="mt-2" :message="form.errors" /> -->
+            
           </div>
-
+          
           <div class="relative ml-4">
             <SearchFormLabel for="person" value="ご利用人数" />
             <SearchFormInput @click="showGuestForm" id="person" type="text" class="border px-2 py-1 w-80 rounded focus:outline-none focus:border-indigo-300" required autocomplete="current-password" readonly :value="`大人${form.adult}人, 子供${form.child}`"/>
-      
+            
             <div v-if="guestFormDisplay" class="z-50 absolute left-0 top-14 guestsForm shadow-sm w-80 py-4 border px-4 box-border rounded border-solid border-gray-300 mt-2 focus:outline-none focus:border-indigo-300 bg-white">
               <div class="mb-6">
                 <SearchFormLabel for="adult" value="大人" />
@@ -91,14 +93,17 @@ const replaceTimeString = (time_string) => {
               </SearchFormButton>
             </div>
           </div>
-
-
+          
+          
           <div class="flex justify-center mt-8">
             <SearchFormButton class="text-lg" @click.prevent="searchRoomPlan(inputValue.start, inputValue.end)">検索する</SearchFormButton>
           </div>
         </template>
       </v-date-picker>
-
+      
+      <SearchFormError class="mt-2 text-center" :message="form.errors.startDate" />
+      <SearchFormError class="mt-2 text-center" :message="form.errors.adult" />
+      <SearchFormError class="mt-2 text-center" :message="form.errors.child" />
     </div>
     
 
