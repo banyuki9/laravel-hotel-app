@@ -51,4 +51,9 @@ class BookService
   {
     return Book::where('id', $book_id)->where('user_id', Auth::id())->firstOrFail();
   }
+
+  public function saveBookUrl($request)
+  {
+    $request->session()->put('bookUrl', $request->fullUrl());
+  }
 }

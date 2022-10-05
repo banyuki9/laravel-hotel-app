@@ -11,8 +11,6 @@ const props = defineProps({
 })
 
 const guestFormDisplay = ref(false)
-const date = new Date();
-const datePickerErrorMessage = ref("");
 
 const range = reactive({
   start: new Date(props.form.startDate),
@@ -31,7 +29,7 @@ const searchRoomPlan = (startDate, endDate) => {
   props.form.startDate = new Date(replaceTimeString(startDate))
   props.form.endDate = new Date(replaceTimeString(endDate))
   props.form.get(route('book.index'), {
-    preserveState: true,
+    // preserveState: true,
   })
 }
 

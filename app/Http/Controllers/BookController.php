@@ -14,9 +14,9 @@ use App\Services\Book\BookService;
 
 class BookController extends Controller
 {
-    public function index(indexRequest $request)
+    public function index(indexRequest $request, BookService $bookService)
     {
-        // dd($request->adult);
+        $bookService->saveBookUrl($request);
         $query = Room::query();
 
         $termDays = Book::getTermDays($request->startDate, $request->endDate);
