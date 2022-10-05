@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Book\indexRequest;
+use App\Http\Requests\Book\CreateCustomerDataRequest;
 use App\Services\Plan\PlanService;
 use App\Models\Room;
 use App\Models\Book;
@@ -67,7 +68,7 @@ class BookController extends Controller
         ]);
     }
 
-    public function storeCustomerData(Request $request)
+    public function storeCustomerData(CreateCustomerDataRequest $request)
     {
         $customerData = [
             'name_kanji' => $request->name_kanji,
