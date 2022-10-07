@@ -13,8 +13,8 @@ const props = defineProps({
 const guestFormDisplay = ref(false)
 
 const range = reactive({
-  start: new Date(props.form.startDate),
-  end: new Date(props.form.endDate),
+  start: props.form.startDate,
+  end: props.form.endDate,
 });
 
 const showGuestForm = () => {
@@ -26,8 +26,8 @@ const setGuestNumber = () => {
 }
 
 const searchRoomPlan = (startDate, endDate) => {
-  props.form.startDate = new Date(replaceTimeString(startDate))
-  props.form.endDate = new Date(replaceTimeString(endDate))
+  props.form.startDate = replaceTimeString(startDate)
+  props.form.endDate = replaceTimeString(endDate)
   props.form.get(route('book.index'), {
     // preserveState: true,
   })
@@ -36,7 +36,7 @@ const searchRoomPlan = (startDate, endDate) => {
 const replaceTimeString = (time_string) => {
   let res = null;
 
-  res = time_string.replace( /[年|月]/g, '/');
+  res = time_string.replace( /[年|月]/g, '-');
   res = res.replace( /[時|分]/g, ':');
   res = res.replace( /[日|秒]/g, '');
 

@@ -40,6 +40,7 @@ class BookConfirmation extends Mailable
         $this->plan = PlanService::getPlan($this->bookData->plan_id);
         $this->bookData->checkin_at = $this->changeDateFormat($this->bookData->checkin_at);
         $this->bookData->checkout_at = $this->changeDateFormat($this->bookData->checkout_at);
+        $this->bookData->booked_at = $this->changeDateFormat($this->bookData->booked_at);
         return $this->markdown('email.book_confirmation');
     }
 

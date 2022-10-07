@@ -68,4 +68,11 @@ class BookService
     ];
     return $books;
   }
+
+  public function deleteSessionData(Request $request)
+  {
+    $request->session()->forget('book');
+    $request->session()->forget('bookUrl');
+    $request->session()->forget('customerData');
+  }
 }

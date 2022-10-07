@@ -37,9 +37,8 @@ class StripePaymentsController extends Controller
             
             $bookData = $bookService->insertBookData($request);
             $authService->updateCustomerUserData($request);
-            $this->deleteSessionData($request);
             $mailer->to(Auth::user()->email)->send(new BookConfirmation($bookData, Auth::user()));
-
+            $bookService->deleteSessionData($request);
             DB::commit();
             return redirect()->route('book.complete', $bookData->id);
 
@@ -49,11 +48,5 @@ class StripePaymentsController extends Controller
         }
     }
 
-    public function deleteSessionData($request) 
-    {
-        $request->session()->forget('book');
-        $request->session()->forget('bookUrl');
-        $request->session()->forget('customerData');
-    }
 
 }

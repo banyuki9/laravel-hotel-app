@@ -80,7 +80,7 @@ class BookController extends Controller
         return redirect()->route('book.payment');
     }
 
-    public function createBookPayment(Request $request)
+    public function createBookPayment(Request $request, BookService $bookService)
     {
         $book = $request->session()->get('book');
         $plan = PlanService::getPlan($book['planId']);

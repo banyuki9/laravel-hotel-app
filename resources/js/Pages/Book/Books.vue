@@ -11,15 +11,15 @@ const props = defineProps(["rooms", "guests", "start", "end", "termDays", "holid
 const date = new Date();
 
 const form = useForm({
-  startDate: props.start,
-  endDate: props.end,
+  startDate: new Date(props.start).toLocaleString({ timeZone: 'Asia/Tokyo' }),
+  endDate: new Date(props.end).toLocaleString({ timeZone: 'Asia/Tokyo' }),
   adult: props.guests.adult,
   child: props.guests.child,
 })
 
 const storeBookDataForm = useForm({
-  startDate: props.start,
-  endDate: props.end,
+  startDate: new Date(props.start).toLocaleString({ timeZone: 'Asia/Tokyo' }),
+  endDate: new Date(props.end).toLocaleString({ timeZone: 'Asia/Tokyo' }),
   adult: props.guests.adult,
   child: props.guests.child, 
   dateOfNights: props.termDays.length - 1,
