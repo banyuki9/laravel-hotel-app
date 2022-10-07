@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
         if ($request->session()->get('bookUrl')) {
             return redirect($request->session()->get('bookUrl'));
         } else {
-            return redirect(RouteServiceProvider::HOME);
+            return redirect(RouteServiceProvider::BOOK);
         }
     }
 }
