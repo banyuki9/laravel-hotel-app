@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use \Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use App\Models\Plan;
 
 class Book extends Model
 {
@@ -36,5 +37,10 @@ class Book extends Model
             'child' => $child ? $child : 0,
         ];
         return $guests;
+    }
+
+    public function plan()
+    {
+        return $this->hasOne(Plan::class);
     }
 }

@@ -50,6 +50,9 @@ Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'create
 Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'storeCustomerData'])->middleware(['auth', 'verified'])->name('book.store-customer-data');
 Route::post('/book', [App\Http\Controllers\StripePaymentsController::class, 'payment'])->middleware(['auth', 'verified'])->name('book.store-payment');
 Route::get('/book/complete/{id}', [App\Http\Controllers\BookController::class, 'complete'])->middleware(['auth', 'verified'])->name('book.complete');
+Route::get('/book/{user_id}', [App\Http\Controllers\BookController::class, 'userBookIndex'])->name('book.user-books');
+Route::get('/book/{user_id}/{id}', [App\Http\Controllers\BookController::class, 'userBookShow'])->name('book.user-book-show');
+
 
 
 require __DIR__.'/auth.php';

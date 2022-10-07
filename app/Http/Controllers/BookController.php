@@ -98,4 +98,22 @@ class BookController extends Controller
             'book' => $book,
         ]);  
     }
+
+    public function userBookIndex(Request $request) 
+    {
+        $books = BookService::getUserBook($request->route('user_id'));
+
+        return Inertia::render('Book/UserBookIndex', [
+            'books' => $books,
+        ]);
+    }
+
+    public function userBookShow(Request $request)
+    {
+        $book = Book::find(1)->with('plan')->where('id', '=' ,$request->route('id'));
+        dd($book);
+        return Inertia::render('Book/BookComplete', [
+            'book' => $book,
+        ]);  
+    }
 }
