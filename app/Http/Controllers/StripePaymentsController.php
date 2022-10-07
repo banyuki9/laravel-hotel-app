@@ -52,6 +52,7 @@ class StripePaymentsController extends Controller
     public function deleteSessionData($request) 
     {
         $request->session()->forget('book');
+        $request->session()->forget('bookUrl');
         $request->session()->forget('customerData');
     }
 
