@@ -10,13 +10,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Services\Book\BookService;
 use App\Services\Auth\AuthService;
 use Inertia\Inertia;
+use App\Mail\BookConfirmation;
+use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Support\Facades\DB;
 
 class StripePaymentsController extends Controller
 {
-    public function payment(Request $request, BookService $bookService, AuthService $authService)
+    public function payment(Request $request, BookService $bookService, AuthService $authService, Mailer $mailer)
     {
         
         try {
+            DB::beginTransaction();
             Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
             
             $customer = Customer::create(array(
@@ -31,13 +35,16 @@ class StripePaymentsController extends Controller
                 'currency' => 'jpy',
             ));
             
-            $book_data = $bookService->insertBookData($request);
+            $bookData = $bookService->insertBookData($request);
             $authService->updateCustomerUserData($request);
             $this->deleteSessionData($request);
+            $mailer->to(Auth::user()->email)->send(new BookConfirmation($bookData, Auth::user()));
 
-            return redirect()->route('book.complete', $book_data->id);
+            DB::commit();
+            return redirect()->route('book.complete', $bookData->id);
 
         } catch (Exception $e) {
+            DB::rollBack();
             return $e->getMessage();
         }
     }
