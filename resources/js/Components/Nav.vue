@@ -1,7 +1,9 @@
 <script setup>
+import { usePage } from "@inertiajs/inertia-vue3";
 import BreezeDropdownLink from "@/Components/DropdownLink.vue";
 import BreezeApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { ref } from "vue";
+const user = usePage().props.value.auth.user;
 const hasMenu = ref(false);
 
 const toggleMenu = () => {
@@ -70,7 +72,7 @@ const toggleMenu = () => {
         <div class="hidden md:block">
           <div class="ml-4 flex items-center md:ml-6">
             <!-- Profile dropdown -->
-            <div class="relative ml-3" v-if="$page.props.auth.user">
+            <div class="relative ml-3" v-if="user">
               <div>
                 <button
                   type="button"
@@ -132,13 +134,21 @@ const toggleMenu = () => {
               >
                 <!-- Active: "bg-gray-100", Not Active: "" -->
                 <a
-                  :href="route('book.user-books', $page.props.auth.user.id)"
+                  :href="route('book.user-books', user.id)"
+                  v-if="user.role === 1"
                   class="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabindex="-1"
                   id="user-menu-item-0"
                   >ご予約</a
                 >
+                <BreezeDropdownLink
+                  :href="route('dashboard')"
+                  as="button"
+                  v-if="user.role === 0"
+                >
+                  ダッシュボード
+                </BreezeDropdownLink>
 
                 <a
                   href="#"
@@ -146,13 +156,16 @@ const toggleMenu = () => {
                   role="menuitem"
                   tabindex="-1"
                   id="user-menu-item-1"
+                  v-if="user"
                   >設定</a
                 >
+
 
                 <BreezeDropdownLink
                   :href="route('logout')"
                   method="post"
                   as="button"
+                  v-if="user"
                 >
                   ログアウト
                 </BreezeDropdownLink>
