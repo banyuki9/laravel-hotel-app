@@ -41,6 +41,6 @@ class Book extends Model
 
     public function plan()
     {
-        return $this->hasOne(Plan::class);
+        return $this->belongsTo(Plan::class);
     }
 }

@@ -60,8 +60,10 @@ class BookService
   public static function getUserBook($user_id)
   {
     $today = Carbon::today();
-    $stayed_book = Book::where('user_id', $user_id)->where('checkin_at', '<=', $today)->orderBy('checkin_at', 'asc')->get();
-    $not_stayed_book = Book::where('user_id', $user_id)->where('checkin_at', '>=', $today)->orderBy('checkin_at', 'asc')->get();
+    
+    $stayed_book = Book::with('plan')->where('user_id', $user_id)->whereDate('checkin_at', '<=', $today)->whereDate('checkin_at', '!=', $today)->orderBy('checkin_at', 'desc')->get();
+    $not_stayed_book = Book::with('plan')->where('user_id', $user_id)->whereDate('checkin_at', '>=', $today)->orderBy('checkin_at', 'asc')->get();
+
     $books = [
       'stayed_book' => $stayed_book,
       'not_stayed_book' => $not_stayed_book,

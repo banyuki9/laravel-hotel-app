@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Book\indexRequest;
 use App\Http\Requests\Book\CreateCustomerDataRequest;
 use App\Services\Plan\PlanService;
+use App\Services\Room\RoomService;
 use App\Models\Room;
 use App\Models\Book;
 use Inertia\Inertia;
@@ -111,10 +112,12 @@ class BookController extends Controller
 
     public function userBookShow(Request $request)
     {
-        $book = Book::find(1)->with('plan')->where('id', '=' ,$request->route('id'));
-        dd($book);
-        return Inertia::render('Book/BookComplete', [
+        $book = Book::with('plan')->where('id', '=' ,$request->route('id'))->firstOrFail();
+        $room = RoomService::getRoomDetail($book->plan->room_id);
+
+        return Inertia::render('Book/UserBookDetail', [
             'book' => $book,
+            'room' => $room,
         ]);  
     }
 }

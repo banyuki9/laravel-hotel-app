@@ -13,9 +13,8 @@ class RoomService
    *
    * @return object
    */
-  public static function getRoomDetail($request)
+  public static function getRoomDetail($room_id)
   {
-    $room_id = (int) $request->route('id');
     return Room::where('id', $room_id)->firstOrFail();
   }
 }

@@ -21,7 +21,7 @@ class RoomsController extends Controller
 
     public function show(Request $request)
     {
-        $room = RoomService::getRoomDetail($request);
+        $room = RoomService::getRoomDetail($request->route('id'));
         $plans = PlanService::getRoomPlans($request);
         return Inertia::render('Room/RoomDetail', [
             'room' => $room,
@@ -38,7 +38,7 @@ class RoomsController extends Controller
 
     public function edit(Request $request)
     {
-        $room = RoomService::getRoomDetail($request);
+        $room = RoomService::getRoomDetail($request->route('id'));
         return Inertia::render('Room/RoomEdit', [
             'room' => $room,
         ]); 
@@ -52,14 +52,14 @@ class RoomsController extends Controller
 
     public function update(CreateRequest $request)
     {
-        $room = RoomService::getRoomDetail($request); 
+        $room = RoomService::getRoomDetail($request->route('id')); 
         $room->update($request->all());
         return redirect()->route('rooms.show', $request->route('id'));
     }
 
     public function delete(Request $request)
     {
-        $room = RoomService::getRoomDetail($request);
+        $room = RoomService::getRoomDetail($request->route('id'));
         $room->delete();
         return redirect()->route('rooms.index');
     }

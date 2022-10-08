@@ -16,4 +16,9 @@ class Plan extends Model
     {
         return $this->belongsTo(Room::class);
     }
+
+    public function books()
+    {
+        return $this->hasMany(Book::class);
+    }
 }
