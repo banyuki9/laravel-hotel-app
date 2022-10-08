@@ -56,9 +56,7 @@ class BookController extends Controller
     
     public function create(Request $request) 
     {
-        if (empty($request->session()->get('book'))) {
-            return redirect()->route('book.index');
-        }
+
         $book = $request->session()->get('book');
         $plan = PlanService::getPlan($book['planId']);
 
@@ -82,6 +80,9 @@ class BookController extends Controller
 
     public function createBookPayment(Request $request, BookService $bookService)
     {
+        if (empty($request->session()->get('book')) && empty($request->session()->get('customerData'))) {
+            return redirect()->route('book.index');
+        }
         $book = $request->session()->get('book');
         $plan = PlanService::getPlan($book['planId']);
         return Inertia::render('Book/BookPayment', [

@@ -44,14 +44,14 @@ Route::delete('/plan/{id}', [App\Http\Controllers\PlanController::class, 'delete
 
 // Books
 Route::get('/book', [App\Http\Controllers\BookController::class, 'index'])->name('book.index');
-Route::get('/book/create', [App\Http\Controllers\BookController::class, 'create'])->middleware(['auth', 'verified'])->name('book.create');
+Route::get('/book/create', [App\Http\Controllers\BookController::class, 'create'])->middleware(['auth', 'verified', 'hasBookData'])->name('book.create');
 Route::post('/book/store-book-data', [App\Http\Controllers\BookController::class, 'storeBookData'])->name('book.store-book-data');
-Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'createBookPayment'])->middleware(['auth', 'verified'])->name('book.payment');
-Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'storeCustomerData'])->middleware(['auth', 'verified'])->name('book.store-customer-data');
-Route::post('/book', [App\Http\Controllers\StripePaymentsController::class, 'payment'])->middleware(['auth', 'verified'])->name('book.store-payment');
+Route::get('/book/payment', [App\Http\Controllers\BookController::class, 'createBookPayment'])->middleware(['auth', 'verified','hasBookData', 'hasCustomerData'])->name('book.payment');
+Route::post('/book/payment', [App\Http\Controllers\BookController::class, 'storeCustomerData'])->middleware(['auth', 'verified', 'hasBookData'])->name('book.store-customer-data');
+Route::post('/book', [App\Http\Controllers\StripePaymentsController::class, 'payment'])->middleware(['auth','verified', 'hasBookData', 'hasCustomerData'])->name('book.store-payment');
 Route::get('/book/complete/{id}', [App\Http\Controllers\BookController::class, 'complete'])->middleware(['auth', 'verified'])->name('book.complete');
-Route::get('/book/{user_id}', [App\Http\Controllers\BookController::class, 'userBookIndex'])->name('book.user-books');
-Route::get('/book/{user_id}/{id}', [App\Http\Controllers\BookController::class, 'userBookShow'])->name('book.user-book-show');
+Route::get('/book/{user_id}', [App\Http\Controllers\BookController::class, 'userBookIndex'])->middleware(['auth', 'verified', 'correctUserId'])->name('book.user-books');
+Route::get('/book/{user_id}/{id}', [App\Http\Controllers\BookController::class, 'userBookShow'])->middleware(['auth', 'verified', 'correctUserId'])->name('book.user-book-show');
 
 
 

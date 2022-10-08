@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps } from "@inertiajs/inertia-vue3";
+import { Head, defineProps } from "@inertiajs/inertia-vue3";
 import CommonLayout from "@/Layouts/Common.vue";
 const props = defineProps(["book"]);
 </script>
