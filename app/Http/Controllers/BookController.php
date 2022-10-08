@@ -112,12 +112,11 @@ class BookController extends Controller
 
     public function userBookShow(Request $request)
     {
-        $book = Book::with('plan')->where('id', '=' ,$request->route('id'))->firstOrFail();
-        $room = RoomService::getRoomDetail($book->plan->room_id);
+        $book = Book::with('plan')->with('user')->where('id', '=' ,$request->route('id'))->firstOrFail();
 
         return Inertia::render('Book/UserBookDetail', [
             'book' => $book,
-            'room' => $room,
+            'room' => $book->plan->room,
         ]);  
     }
 }

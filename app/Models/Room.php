@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Plan;
+use App\Models\Book;
 
 class Room extends Model
 {
@@ -14,5 +15,10 @@ class Room extends Model
     public function plans()
     {
         return $this->hasMany(Plan::class);
+    }
+
+    public function book()
+    {
+        return $this->hasManyThrough(Book::class, Plan::class);
     }
 }

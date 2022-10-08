@@ -23,7 +23,8 @@ const props = defineProps(["books"]);
           </div>
           <div class="flow-root">
               <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                  <UserBookCard class="py-3 sm:py-4" v-for="book in books.not_stayed_book" :key="book.id" :book="book"></UserBookCard>
+                  <UserBookCard class="py-3 sm:py-4" v-for="book in books.not_stayed_book" :key="book.id" :book="book">
+                  </UserBookCard>
               </ul>
           </div>
       </div>

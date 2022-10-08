@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use \Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Models\Plan;
+use App\Models\Room;
 
 class Book extends Model
 {
@@ -43,4 +44,10 @@ class Book extends Model
     {
         return $this->belongsTo(Plan::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
