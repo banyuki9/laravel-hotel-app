@@ -1,8 +1,20 @@
 <script setup>
-import { Head, defineProps } from "@inertiajs/inertia-vue3";
+import { Head, useForm, defineProps, usePage } from "@inertiajs/inertia-vue3";
 import CommonLayout from "@/Layouts/Common.vue";
 import UserBookCard from "@/Components/Book/UserBookCard.vue"
+import BookCodeInput from '@/Components/Input.vue';
+import BookCodeFormButton from '@/Components/Button.vue';
 const props = defineProps(["books"]);
+const user = usePage().props.value.auth.user;
+const form = useForm({
+  bookCode: '',
+})
+
+const searchBook = () => {
+  if (form.bookCode) {
+    form.get(route('book.user-book-show', [user.id, form.bookCode.trim()]))
+  }
+}
 </script>
 
 <template>
@@ -15,6 +27,15 @@ const props = defineProps(["books"]);
         </h2>
       </div>
     </template>
+
+    <div class="form mb-8">
+      <form class="flex " @click.prevent="searchBook">
+        <BookCodeInput type="text" class="mr-2 max-w-xs w-full" placeholder="ご予約番号を入力してください" v-model="form.bookCode"/>
+        <BookCodeFormButton>
+          検索
+        </BookCodeFormButton>
+      </form>
+    </div>
 
     <div class="flex">
       <div class="p-4 w-full basic-1/2 bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700 mr-4">

@@ -10,8 +10,8 @@ const props = defineProps(['book'])
       <div class="flex items-center space-x-4">
           <div class="flex-1 min-w-0">
               <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                  <a :href="route('book.user-book-show', [user.id, book.id])" class="mb-2 inline-block hover:text-gray-600">
-                    <span class="font-semibold ">{{book.plan.title}}</span><br>
+                  <a :href="route('book.user-book-show', [user.id, book.book_code])" class="mb-2 inline-block hover:text-gray-600">
+                    <span class="font-semibold ">{{book.plan.room.title}}</span><br>
                     ご予約番号: {{book.book_code}}
                   </a> 
               </p>

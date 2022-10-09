@@ -150,6 +150,14 @@ const toggleMenu = () => {
                   ダッシュボード
                 </BreezeDropdownLink>
 
+                <BreezeDropdownLink
+                  :href="route('dashboard')"
+                  as="button"
+                  v-if="user.role === 0"
+                >
+                  予約一覧
+                </BreezeDropdownLink>
+
                 <a
                   href="#"
                   class="block px-4 py-2 text-sm text-gray-700"

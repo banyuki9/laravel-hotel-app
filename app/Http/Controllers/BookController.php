@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Book\indexRequest;
 use App\Http\Requests\Book\CreateCustomerDataRequest;
 use App\Services\Plan\PlanService;
-use App\Services\Room\RoomService;
 use App\Models\Room;
 use App\Models\Book;
 use Inertia\Inertia;
@@ -81,9 +80,6 @@ class BookController extends Controller
 
     public function createBookPayment(Request $request, BookService $bookService)
     {
-        if (empty($request->session()->get('book')) && empty($request->session()->get('customerData'))) {
-            return redirect()->route('book.index');
-        }
         $book = $request->session()->get('book');
         $plan = PlanService::getPlan($book['planId']);
         return Inertia::render('Book/BookPayment', [
@@ -103,7 +99,7 @@ class BookController extends Controller
 
     public function userBookIndex(Request $request) 
     {
-        $books = BookService::getUserBook($request->route('user_id'));
+        $books = BookService::getUserBooks($request->route('user_id'));
 
         return Inertia::render('Book/UserBookIndex', [
             'books' => $books,
@@ -112,11 +108,11 @@ class BookController extends Controller
 
     public function userBookShow(Request $request)
     {
-        $book = Book::with('plan')->with('user')->where('id', '=' ,$request->route('id'))->firstOrFail();
+        $book = BookService::getUserBookDetail($request->book_code);
 
         return Inertia::render('Book/UserBookDetail', [
             'book' => $book,
-            'room' => $book->plan->room,
         ]);  
     }
+
 }

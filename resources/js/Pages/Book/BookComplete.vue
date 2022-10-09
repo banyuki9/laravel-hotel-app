@@ -1,6 +1,7 @@
 <script setup>
-import { Head, defineProps } from "@inertiajs/inertia-vue3";
+import { Head, usePage, defineProps } from "@inertiajs/inertia-vue3";
 import CommonLayout from "@/Layouts/Common.vue";
+const user = usePage().props.value.auth.user
 const props = defineProps(["book"]);
 </script>
 
@@ -23,8 +24,8 @@ const props = defineProps(["book"]);
       ご予約を承りました。<br>
       予約番号: {{ book.book_code }}
       <div class="mt-12">
-        <a :href="route('top')" class="nline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150">
-          トップへ戻る
+        <a :href="route('book.user-book-show', [user.id, book.book_code])" class="nline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray transition ease-in-out duration-150">
+          ご予約詳細
         </a>
       </div>
     </div>

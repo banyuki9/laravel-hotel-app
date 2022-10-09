@@ -1,7 +1,7 @@
 <script setup>
 import { Head, defineProps } from "@inertiajs/inertia-vue3"
 import CommonLayout from "@/Layouts/Common.vue";
-const props = defineProps(['book', 'room'])
+const props = defineProps(['book'])
 </script>
 
 <template>
@@ -22,6 +22,9 @@ const props = defineProps(['book', 'room'])
         <p class="text-sm mt-2">
           ご予約日 : {{book.booked_at}}
         </p>
+        <p class="text-sm mb-2">
+          ご予番号 : {{book.book_code}}
+        </p>
       </h2>
       <div class="bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 dark:border-gray-700 mb-4">
         <h3 class="font-semibold text-l text-gray-800 leading-tight pb-4">
@@ -31,8 +34,8 @@ const props = defineProps(['book', 'room'])
           <dl class="flex mb-2">
             <dt class="mr-2">客室</dt>
             <dd>
-              <a :href="route('rooms.show', room.id)" class="hover:text-gray-600 underline hover:decoration-slate-400">
-                {{room.title}}
+              <a :href="route('rooms.show', book.plan.room.id)" class="hover:text-gray-600 underline hover:decoration-slate-400">
+                {{book.plan.room.title}}
               </a>
             </dd>
           </dl>
@@ -40,7 +43,7 @@ const props = defineProps(['book', 'room'])
           <dl class="flex mb-2">
             <dt class="mr-2">プラン</dt>
             <dd>
-              <a :href="route('rooms.show', room.id)" class="hover:text-gray-600 underline hover:decoration-slate-400">
+              <a :href="route('rooms.show', book.plan.room.id)" class="hover:text-gray-600 underline hover:decoration-slate-400">
                 {{book.plan.title}}
               </a> 
             </dd>
