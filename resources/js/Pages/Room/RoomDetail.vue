@@ -24,7 +24,7 @@ const getThumbnail = () => {
       return;
     }
   });
-};
+}
 const url = location.protocol + "//" + location.host;
 const thumbnail = ref("");
 
@@ -41,7 +41,7 @@ const reservationLink = "";
   <CommonLayout :title="room.title">
     
     <h1
-      class="room-title text-white text-center p-28 bg-gray-600 mb-4 text-xl"
+      class="room-title text-white text-center p-32 bg-no-repeat bg-center mb-12 text-xl bg-cover"
       :style="{
         'background-image': `url(${url + '/storage/images/' + thumbnail.link})`,
       }"
@@ -116,7 +116,7 @@ const reservationLink = "";
       </div>
     </div>
 
-    <div class="article max-w-4xl mx-auto mb-8 leading-relaxed">
+    <div class="article max-w-4xl mx-auto mb-10 leading-relaxed">
       {{ room.description }}
     </div>
 
@@ -137,6 +137,35 @@ const reservationLink = "";
         <dt class="mb-2 text-gray-500">その他設備</dt>
         <dd>{{ room.facilities }}</dd>
       </dl>
+    </div>
+
+    <div class="images mx-auto max-w-4xl  mt-12 mt-24" v-if="room.images.length">
+        <h3
+        class="
+          font-medium
+          leading-tight
+          text-3xl
+          mt-0
+          mb-2
+          text-center
+          font-bold
+          mb-12
+        "
+      >
+        客室
+      </h3>
+      <div class="flex justify-between flex-wrap">
+        <div
+          v-for="image in room.images"
+          :key="image.id"
+          class="basis-3/12"
+          :class="{ hidden: image.is_thumbnail }"
+        >
+          <div class="image">
+            <img :src="image.image_url" alt="" class="w-full" />
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="mt-24 max-w-4xl mx-auto" v-if="plans.length">
@@ -177,7 +206,7 @@ const reservationLink = "";
             border border-gray-200
             shadow-md
             dark:bg-gray-800 dark:border-gray-700
-            basis-1/2
+            basis-[48%]
             mb-4
           "
           :reservation-link="reservationLink"
@@ -186,18 +215,7 @@ const reservationLink = "";
       </div>
     </div>
 
-    <div class="images mx-auto max-w-4xl flex justify-between mt-12 flex-wrap">
-      <div
-        v-for="image in room.images"
-        :key="image.id"
-        class="basis-3/12"
-        :class="{ hidden: image.is_thumbnail }"
-      >
-        <div class="image">
-          <img :src="image.image_url" alt="" class="w-full" />
-        </div>
-      </div>
-    </div>
+
   </CommonLayout>
 </template>
 
