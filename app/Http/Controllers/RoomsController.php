@@ -15,7 +15,7 @@ class RoomsController extends Controller
     public function index()
     {
         return Inertia::render('Room/Rooms', [
-            'rooms' => Room::orderBy('created_at', 'desc')->paginate(12),
+            'rooms' => Room::with('images')->orderBy('created_at', 'desc')->paginate(12),
         ]);
     }
 
