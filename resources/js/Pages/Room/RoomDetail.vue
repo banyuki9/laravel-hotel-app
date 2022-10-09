@@ -58,8 +58,8 @@ const reservationLink = "";
       {{ room.title }}
     </h1>
 
-    <div class="flex justify-between mb-10" v-if="user">
-      <div v-if="user.role === 0">
+    <div v-if="user">
+      <div v-if="user.role === 0" class="flex justify-between mb-10 max-w-4xl m-auto">
         <div>
           <a
             :href="route('rooms.edit', room.id)"
