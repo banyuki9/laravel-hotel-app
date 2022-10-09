@@ -1,13 +1,14 @@
 <script setup>
-  import BreezeDropdownLink from '@/Components/DropdownLink.vue';
+import { usePage } from "@inertiajs/inertia-vue3";
+import BreezeDropdownLink from "@/Components/DropdownLink.vue";
+import BreezeApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { ref } from "vue";
+const user = usePage().props.value.auth.user;
 const hasMenu = ref(false);
 
 const toggleMenu = () => {
   hasMenu.value ? (hasMenu.value = false) : (hasMenu.value = true);
 };
-
-
 </script>
 
 <template>
@@ -39,7 +40,7 @@ const toggleMenu = () => {
               </a>
 
               <a
-                href="#"
+                :href="route('book.index')"
                 class="
                   text-gray-300
                   hover:bg-gray-700 hover:text-white
@@ -49,7 +50,7 @@ const toggleMenu = () => {
                   text-sm
                   font-medium
                 "
-                >予約一覧</a
+                >空室検索</a
               >
 
               <a
@@ -71,7 +72,7 @@ const toggleMenu = () => {
         <div class="hidden md:block">
           <div class="ml-4 flex items-center md:ml-6">
             <!-- Profile dropdown -->
-            <div class="relative ml-3">
+            <div class="relative ml-3" v-if="user">
               <div>
                 <button
                   type="button"
@@ -94,10 +95,8 @@ const toggleMenu = () => {
                   @click="toggleMenu"
                 >
                   <span class="sr-only">Open user menu</span>
-                  <img
-                    class="h-8 w-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
+                  <BreezeApplicationLogo
+                    class="w-10 h-10 fill-current text-gray-500"
                   />
                 </button>
               </div>
@@ -135,13 +134,29 @@ const toggleMenu = () => {
               >
                 <!-- Active: "bg-gray-100", Not Active: "" -->
                 <a
-                  href="#"
+                  :href="route('book.user-books', user.id)"
+                  v-if="user.role === 1"
                   class="block px-4 py-2 text-sm text-gray-700"
                   role="menuitem"
                   tabindex="-1"
                   id="user-menu-item-0"
-                  >Your Profile</a
+                  >ご予約</a
                 >
+                <BreezeDropdownLink
+                  :href="route('dashboard')"
+                  as="button"
+                  v-if="user.role === 0"
+                >
+                  ダッシュボード
+                </BreezeDropdownLink>
+
+                <BreezeDropdownLink
+                  :href="route('dashboard')"
+                  as="button"
+                  v-if="user.role === 0"
+                >
+                  予約一覧
+                </BreezeDropdownLink>
 
                 <a
                   href="#"
@@ -149,17 +164,51 @@ const toggleMenu = () => {
                   role="menuitem"
                   tabindex="-1"
                   id="user-menu-item-1"
-                  >Settings</a
+                  v-if="user"
+                  >設定</a
                 >
+
 
                 <BreezeDropdownLink
                   :href="route('logout')"
                   method="post"
                   as="button"
+                  v-if="user"
                 >
-                  Log Out
+                  ログアウト
                 </BreezeDropdownLink>
               </div>
+            </div>
+
+            <div v-else>
+              <a
+                :href="route('login')"
+                class="
+                  text-gray-300
+                  hover:bg-gray-700 hover:text-white
+                  px-3
+                  py-2
+                  rounded-md
+                  text-sm
+                  font-medium
+                "
+              >
+                ログイン
+              </a>
+              <a
+                :href="route('register')"
+                class="
+                  text-gray-300
+                  hover:bg-gray-700 hover:text-white
+                  px-3
+                  py-2
+                  rounded-md
+                  text-sm
+                  font-medium
+                "
+              >
+                新規登録
+              </a>
             </div>
           </div>
         </div>

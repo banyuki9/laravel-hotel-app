@@ -13,7 +13,7 @@ class PlanController extends Controller
 {
     public function create(Request $request)
     {
-        $room = RoomService::getRoomDetail($request);
+        $room = RoomService::getRoomDetail($request->route('id'));
         return Inertia::render('Plan/PlanCreate', [
             'plan' => new Plan(),
             'room' => $room
@@ -32,7 +32,7 @@ class PlanController extends Controller
     public function edit(Request $request)
     {
         $plan = PlanService::getPlan($request->route('plan_id'));
-        $room = RoomService::getRoomDetail($request);
+        $room = RoomService::getRoomDetail($request->route('id'));
         return Inertia::render('Plan/PlanEdit', [
             'room' => $room,
             'plan' => $plan,

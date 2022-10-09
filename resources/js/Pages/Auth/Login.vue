@@ -53,12 +53,15 @@ const submit = () => {
                 </label>
             </div>
 
-            <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
+            <div class="flex flex-wrap items-center justify-center mt-4">
+                <Link v-if="canResetPassword" :href="route('password.request')" class="mr-2 underline text-sm text-gray-600 hover:text-gray-900">
                     パスワードを忘れた方はこちら
                 </Link>
+                <Link :href="route('register')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                    新規登録はこちら
+                </Link>
 
-                <BreezeButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <BreezeButton class="ml-4 mt-4 " :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     ログイン
                 </BreezeButton>
             </div>

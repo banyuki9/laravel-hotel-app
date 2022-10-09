@@ -41,7 +41,7 @@ class AuthenticatedSessionController extends Controller
         if (AuthService::judgeAdmin($request->input('email'))) {
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
         } else {
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended(RouteServiceProvider::BOOK);
         }
     }
 
