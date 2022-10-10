@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Services\Room\RoomService;
 use App\Services\Plan\PlanService;
 use App\Services\Image\ImageService;
+use Illuminate\Support\Facades\DB;
 
 class RoomsController extends Controller
 {
@@ -42,19 +43,23 @@ class RoomsController extends Controller
         $room = RoomService::getRoomDetail($request->route('id'));
         return Inertia::render('Room/RoomEdit', [
             'room' => $room,
-        ]); 
+        ]);
     }
 
     public function store(CreateRequest $request, ImageService $imageService)
     {
-        $room = auth()->user()->rooms()->create($request->all());
-        $imageService->saveRoomThumbnail($request->thumbnail, $room->id);
+        DB::transaction(
+            function () use ($request, $imageService) {
+                $room = auth()->user()->rooms()->create($request->all());
+                $imageService->saveRoomThumbnail($request->thumbnail, $room->id);
+            }
+        );
         return redirect()->route('rooms.index');
     }
 
     public function update(CreateRequest $request)
     {
-        $room = RoomService::getRoomDetail($request->route('id')); 
+        $room = RoomService::getRoomDetail($request->route('id'));
         $room->update($request->all());
         return redirect()->route('rooms.show', $request->route('id'));
     }
@@ -65,5 +70,4 @@ class RoomsController extends Controller
         $room->delete();
         return redirect()->route('rooms.index');
     }
-
 }
