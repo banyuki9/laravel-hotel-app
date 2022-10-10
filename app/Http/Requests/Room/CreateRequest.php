@@ -32,6 +32,8 @@ class CreateRequest extends FormRequest
             'bed_type' => 'required|max:255',
             'facilities' => 'required|max:1000',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'sub_images' => 'array|max:8',
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ];
     }
 
@@ -50,5 +52,9 @@ class CreateRequest extends FormRequest
         ];
     }
 
+    public function subImages(): array 
+    {
+        return $this->file('sub_images', []);
+    }
 
 }

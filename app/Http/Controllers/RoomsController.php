@@ -52,6 +52,7 @@ class RoomsController extends Controller
             function () use ($request, $imageService) {
                 $room = auth()->user()->rooms()->create($request->all());
                 $imageService->saveRoomThumbnail($request->thumbnail, $room->id);
+                $imageService->saveRoomSubImages($request->sub_images, $room->id);
             }
         );
         return redirect()->route('rooms.index');

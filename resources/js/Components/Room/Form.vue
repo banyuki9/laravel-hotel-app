@@ -67,7 +67,7 @@ const submit = () => {
       
       <div class="mb-6">
         <BreezeLabel for="sub_images" value="サブ画像" />
-        <BreezeInputFile v-model="form.sub_images" id="sub_images"/>
+        <BreezeInputFile @input="form.sub_images = $event.target.files" id="sub_images" multiple/>
         <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">8枚までアップロード可能</div>
       </div>
 

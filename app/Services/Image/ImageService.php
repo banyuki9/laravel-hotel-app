@@ -11,14 +11,25 @@ class ImageService
 
   public function saveRoomThumbnail($image, $room_id)
   {
+    $this->insertImage($image, $room_id, 0, true);
+  }
+
+  public function saveRoomSubImages($images, $room_id)
+  {
+    foreach ($images as $index => $image) {
+      $this->insertImage($image, $room_id, $index, false);
+    }
+  }
+
+  public function insertImage($image, $room_id, $index, $is_thumbnail)
+  {
     Storage::put('public/images', $image);
     $imageModel = new Image();
     $imageModel->link = $image->hashName();
     $imageModel->room_id = $room_id;
-    $imageModel->is_thumbnail = true;
-    $imageModel->order = 0;
-    $imageModel->save();
+    $imageModel->is_thumbnail = $is_thumbnail;
+    $imageModel->order = $index;
+    $imageModel->save(); 
   }
-
-
+  
 }
