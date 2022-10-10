@@ -19,7 +19,7 @@ class RoomSeeder extends Seeder
     {
         Room::factory()->count(20)->create()
             ->each(function ($room) {
-                Image::factory()->count(1)->create(['room_id' => $room->id, 'is_thumbnail' => true]);
+                Image::factory()->count(1)->create(['room_id' => $room->id, 'is_thumbnail' => true, 'order' => 0]);
                 Image::factory()->count(4)->create(['room_id' => $room->id]);
             })
             ->each(function ($room) {
