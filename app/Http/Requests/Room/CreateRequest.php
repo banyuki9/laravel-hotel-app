@@ -31,6 +31,7 @@ class CreateRequest extends FormRequest
             'max_capacity' => 'required|max:255|gt:min_capacity',
             'bed_type' => 'required|max:255',
             'facilities' => 'required|max:1000',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 
@@ -45,6 +46,9 @@ class CreateRequest extends FormRequest
             'max_capacity' => '定員最大',
             'bed_type' => 'ベッドタイプ',
             'facilities' => 'その他の設備',
+            'thumbnail' => 'アイキャッチ画像'
         ];
     }
+
+
 }

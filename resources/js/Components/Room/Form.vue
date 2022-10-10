@@ -59,15 +59,16 @@ const submit = () => {
       </div>
       
       <div class="mb-6">
-        <BreezeLabel for="main_image" value="アイキャッチ画像" />
-        <BreezeInputFile v-model="form.main_image" id="main_image"/>
+        <BreezeLabel for="thumbnail" value="アイキャッチ画像" />
+        <BreezeInputFile @input="form.thumbnail = $event.target.files[0]" id="thumbnail"/>
         <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">一覧時と詳細ページの一番上に表示されます。</div>
+        <BreezeInputError class="mt-2" :message="form.errors.thumbnail" />
       </div>
       
       <div class="mb-6">
-        <BreezeLabel for="main_image" value="サブ画像" />
-        <BreezeInputFile v-model="form.main_image" id="main_image"/>
-        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">10枚までアップロード可能</div>
+        <BreezeLabel for="sub_images" value="サブ画像" />
+        <BreezeInputFile v-model="form.sub_images" id="sub_images"/>
+        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">8枚までアップロード可能</div>
       </div>
 
 

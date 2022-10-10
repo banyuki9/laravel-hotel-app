@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Services\Room\RoomService;
 use App\Services\Plan\PlanService;
+use App\Services\Image\ImageService;
 
 class RoomsController extends Controller
 {
@@ -44,9 +45,10 @@ class RoomsController extends Controller
         ]); 
     }
 
-    public function store(CreateRequest $request)
+    public function store(CreateRequest $request, ImageService $imageService)
     {
-        auth()->user()->rooms()->create($request->all());
+        $room = auth()->user()->rooms()->create($request->all());
+        $imageService->saveRoomThumbnail($request->thumbnail, $room->id);
         return redirect()->route('rooms.index');
     }
 
