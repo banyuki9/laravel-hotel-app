@@ -58,10 +58,22 @@ class RoomsController extends Controller
         return redirect()->route('rooms.index');
     }
 
-    public function update(CreateRequest $request)
+    public function update(CreateRequest $request, ImageService $imageService)
     {
-        $room = RoomService::getRoomDetail($request->route('id'));
-        $room->update($request->all());
+        DB::transaction(
+            function () use ($request, $imageService) {
+                $room = RoomService::getRoomDetail($request->route('id'));
+                $room->update($request->all());
+                $imageService->saveRoomThumbnail($request->thumbnail, $room->id);
+                $imageService->saveRoomSubImages($request->sub_images, $room->id);
+
+                if($request->delete_images) {
+                    foreach($request->delete_images as $delete_image) {
+                        $imageService->deleteImage($delete_image);
+                    }
+                }
+            }
+        );
         return redirect()->route('rooms.show', $request->route('id'));
     }
 

@@ -32,4 +32,14 @@ class ImageService
     $imageModel->save(); 
   }
 
+  public function deleteImage($delete_image)
+  {
+    $file_path = 'public/images/' . $delete_image['link'];
+    if (Storage::exists($file_path)) {
+      Storage::delete($file_path);
+    }
+    $image = Image::where('id', $delete_image['id'])->firstOrFail();
+    $image->delete();
+  }
+
 }

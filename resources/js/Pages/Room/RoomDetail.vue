@@ -1,6 +1,7 @@
 <script setup>
 import BreezeAuthenticatedLayout from "@/Layouts/Authenticated.vue";
 import PlanCard from "@/Components/Plan/PlanCard.vue";
+import RoomImage from "@/Components/Room/Image.vue";
 import CommonLayout from "@/Layouts/Common.vue";
 import { ref } from "vue";
 import { Head, useForm, usePage } from "@inertiajs/inertia-vue3";
@@ -170,9 +171,7 @@ const reservationLink = "";
           class="basis-3/12"
           :class="{ hidden: image.is_thumbnail }"
         >
-          <div class="image w-full h-full max-h-[224px]">
-            <img :src="image.image_url" alt="" class="w-full object-cover h-full" />
-          </div>
+          <RoomImage :image-url="image.image_url" />
         </div>
       </div>
     </div>

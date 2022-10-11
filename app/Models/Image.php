@@ -12,6 +12,7 @@ class Image extends Model
     
     public function getImageUrlAttribute()
     {
-        return \Storage::url('images/' . $this->link); // storageフォルダを起点としてファイルパスを生成してreturnする
+        return \Storage::url('images/' . $this->link); 
     }
+
 }

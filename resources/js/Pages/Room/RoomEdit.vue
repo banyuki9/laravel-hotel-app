@@ -2,8 +2,10 @@
 import CommonLayout from "@/Layouts/Common.vue";
 import EditForm from '@/Components/Room/Form.vue'
 import { Head, useForm, defineProps } from "@inertiajs/inertia-vue3";
+import { ref, onMounted } from "vue";
 const props = defineProps(["room"]);
 
+const thumbnail = ref("");
 const form = useForm({
   title: props.room.title,
   description: props.room.description,
@@ -12,9 +14,28 @@ const form = useForm({
   max_capacity: props.room.max_capacity,
   bed_type: props.room.bed_type,
   facilities: props.room.bed_type,
-  main_image: '',
+  thumbnail: null,
   sub_images: [],
+  uploaded_sub_images: props.room.images,
+  delete_images: [],
 });
+
+const getThumbnail = () => {
+  props.room.images.some((image, index) => {
+    if (image.is_thumbnail == 1) {
+      form.uploaded_sub_images.splice(index, 1);
+      thumbnail.value = image;
+      return;
+    }
+  });
+}
+
+
+onMounted(() => {
+  getThumbnail();
+  if (thumbnail.value) form.thumbnail = thumbnail.value;
+});
+
 const buttonText = "更新する"
 const update = () => {
     form.patch(route('rooms.update', props.room.id))
