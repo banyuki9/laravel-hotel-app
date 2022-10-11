@@ -11,17 +11,17 @@ class ImageService
 
   public function saveRoomThumbnail($image, $room_id)
   {
-    $this->insertImage($image, $room_id, 0, true);
+    $this->saveImage($image, $room_id, 0, true);
   }
 
   public function saveRoomSubImages($images, $room_id)
   {
     foreach ($images as $index => $image) {
-      $this->insertImage($image, $room_id, $index, false);
+      $this->saveImage($image, $room_id, $index, false);
     }
   }
 
-  public function insertImage($image, $room_id, $index, $is_thumbnail)
+  public function saveImage($image, $room_id, $index, $is_thumbnail)
   {
     Storage::put('public/images', $image);
     $imageModel = new Image();
@@ -31,5 +31,5 @@ class ImageService
     $imageModel->order = $index;
     $imageModel->save(); 
   }
-  
+
 }
