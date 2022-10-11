@@ -50,7 +50,7 @@ const reservationLink = "";
       </div>
     </template> 
     <h1
-      class="room-title text-white text-center p-32 bg-no-repeat bg-center mb-12 text-xl bg-cover"
+      class="room-title text-white text-center p-32 bg-no-repeat bg-center mb-12 text-xl bg-cover font-semibold text-xl"
       :style="{
         'background-image': `url(${url + '/storage/images/' + thumbnail.link})`,
       }"
@@ -163,15 +163,15 @@ const reservationLink = "";
       >
         客室
       </h3>
-      <div class="flex justify-between flex-wrap">
+      <div class="flex flex-wrap">
         <div
           v-for="image in room.images"
           :key="image.id"
           class="basis-3/12"
           :class="{ hidden: image.is_thumbnail }"
         >
-          <div class="image">
-            <img :src="image.image_url" alt="" class="w-full" />
+          <div class="image w-full h-full max-h-[224px]">
+            <img :src="image.image_url" alt="" class="w-full object-cover h-full" />
           </div>
         </div>
       </div>
