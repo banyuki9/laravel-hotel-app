@@ -28,8 +28,8 @@ class BookFactory extends Factory
             'checkin_status' => false,
             'has_credit_card' => true,
             'book_code' => 'xxxxxxxxxxxxxxxx',
-            'checkin_at' => Carbon::today(),
-            'checkout_at' => Carbon::tomorrow(),
+            'checkin_at' => Carbon::yesterday(),
+            'checkout_at' => Carbon::today(),
             'booked_at' => Carbon::yesterday(),
         ];
     }
