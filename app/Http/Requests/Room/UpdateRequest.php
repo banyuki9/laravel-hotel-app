@@ -4,7 +4,7 @@ namespace App\Http\Requests\Room;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,8 @@ class CreateRequest extends FormRequest
      * @return array<string, mixed>
      */
     public function rules()
-    {
+    {  
+
         return [
             'title' => 'required|max:255',
             'description' => 'required|max:1000',
@@ -31,9 +32,12 @@ class CreateRequest extends FormRequest
             'max_capacity' => 'required|max:255|gt:min_capacity',
             'bed_type' => 'required|max:255',
             'facilities' => 'required|max:1000',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'thumbnail' => $this->getThumbnailValidation(),
             'sub_images' => 'array|max:8',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048'
+            'images.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'uploaded_thumbnail' => 'nullable',
+            'uploaded_sub_images' => 'nullable|array',
+            'delete_images'=> 'nullable|array',
         ];
     }
 
@@ -53,9 +57,13 @@ class CreateRequest extends FormRequest
         ];
     }
 
-    public function subImages(): array 
+    public function isUploadedThumbnail()
     {
-        return $this->file('sub_images', []);
+        if (!empty($this->uploaded_thumbnail)) return true; return false;
     }
 
+    public function getThumbnailValidation()
+    {
+        if ($this->isUploadedThumbnail()) return 'nullable'; return 'image|mimes:jpeg,png,jpg,gif|max:2048';
+    }
 }

@@ -14,6 +14,7 @@ const form = useForm({
   facilities: '',
   thumbnail: null,
   sub_images: [],
+  uploaded_sub_images: [],
 });
 const buttonText = "登録する"
 

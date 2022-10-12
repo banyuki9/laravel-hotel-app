@@ -16,6 +16,7 @@ const form = useForm({
   facilities: props.room.bed_type,
   thumbnail: null,
   sub_images: [],
+  uploaded_thumbnail: null,
   uploaded_sub_images: props.room.images,
   delete_images: [],
 });
@@ -33,11 +34,12 @@ const getThumbnail = () => {
 
 onMounted(() => {
   getThumbnail();
-  if (thumbnail.value) form.thumbnail = thumbnail.value;
+  if (thumbnail.value) form.uploaded_thumbnail = thumbnail.value;
 });
 
 const buttonText = "更新する"
 const update = () => {
+  console.log(form)
     form.patch(route('rooms.update', props.room.id))
 };
 

@@ -11,13 +11,17 @@ class ImageService
 
   public function saveRoomThumbnail($image, $room_id)
   {
-    $this->saveImage($image, $room_id, 0, true);
+    if (!empty($image)) {
+      $this->saveImage($image, $room_id, 0, true);
+    }
   }
 
   public function saveRoomSubImages($images, $room_id)
   {
-    foreach ($images as $index => $image) {
-      $this->saveImage($image, $room_id, $index, false);
+    if (!empty($images)) {
+      foreach ($images as $index => $image) {
+        $this->saveImage($image, $room_id, $index, false);
+      }
     }
   }
 
@@ -29,7 +33,7 @@ class ImageService
     $imageModel->room_id = $room_id;
     $imageModel->is_thumbnail = $is_thumbnail;
     $imageModel->order = $index;
-    $imageModel->save(); 
+    $imageModel->save();
   }
 
   public function deleteImage($delete_image)
@@ -41,5 +45,4 @@ class ImageService
     $image = Image::where('id', $delete_image['id'])->firstOrFail();
     $image->delete();
   }
-
 }

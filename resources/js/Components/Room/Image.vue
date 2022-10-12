@@ -1,16 +1,21 @@
 <script setup>
-import { defineProps } from "@inertiajs/inertia-vue3";
+import { defineProps, defineEmits } from "@inertiajs/inertia-vue3";
 const props = defineProps([
   "imageUrl",
   "hasDeleteButton"
 ])
+const emit = defineEmits(['delete'])
+
+const deleteImage = (image) => {
+  emit('delete', image)
+}
 
 </script>
 
 <template>
   <div class="image w-full h-full max-h-[224px] min-h-[224px] relative">
     <form class="absolute top-0 right-0">
-      <button type="button" class="bg-red-600 p-1 inline-flex items-center justify-center text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" v-if="hasDeleteButton">
+      <button type="button" class="bg-red-600 p-1 inline-flex items-center justify-center text-white hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" v-if="hasDeleteButton" @click="deleteImage">
         <span class="sr-only">Close menu</span>
             
           <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

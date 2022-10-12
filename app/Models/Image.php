@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     use HasFactory;
+    protected $fillable = ['room_id', 'is_thumbnail', 'link', 'order'];
     protected $appends = ['image_url'];
     
     public function getImageUrlAttribute()

@@ -6,7 +6,7 @@ import BreezeInputError from '@/Components/InputError.vue';
 import BreezeLabel from '@/Components/Label.vue';
 import BreezeButton from '@/Components/Button.vue';
 import RoomImage from "@/Components/Room/Image.vue";
-import { defineEmits, defineProps, ref } from 'vue'
+import { defineEmits, defineProps, ref, watch } from 'vue'
 
 const props = defineProps({
   form: Object,
@@ -28,6 +28,19 @@ const deleteSubImage = (image_id) => {
   })
 }
 
+const deleteThumbnail = (image) => {
+  props.form.delete_images.push(image);
+  props.form.uploaded_thumbnail = ""
+}
+
+const setSubImages = (e) => {
+  if (e.target.files.length > (8 - props.form.uploaded_sub_images.length)) {
+    alert('登録できる画像は合計8枚までです。')
+    e.target.value = ""
+  } else {
+    props.form.sub_images = e.target.files;
+  }
+}
 
 </script>
 
@@ -71,32 +84,32 @@ const deleteSubImage = (image_id) => {
       
       <div class="mb-6">
         <BreezeLabel for="thumbnail" value="アイキャッチ画像" />
-        <BreezeInputFile @input="form.thumbnail = $event.target.files[0]" id="thumbnail" :readonly="form.thumbnail" accept=".jpg, .jpeg, .png" :disabled="form.thumbnail"/>
-        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">一覧時と詳細ページの一番上に表示されます。</div>
+        <BreezeInputFile @input="form.thumbnail = $event.target.files[0]" id="thumbnail" accept=".jpg, .jpeg, .png" v-if="!form.uploaded_thumbnail"/>
+        <div v-else>アイキャッチ画像は1枚まで登録できます。新しい画像を登録する場合は既存の画像を削除してください。</div>
+        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help" v-if="!form.uploaded_thumbnail">一覧時と詳細ページの一番上に表示されます。</div>
         <BreezeInputError class="mt-2" :message="form.errors.thumbnail" />
 
-        <div class="flex flex-wrap mt-4 mb-12" v-if="form.thumbnail">
+        <div class="flex flex-wrap mt-4 mb-12" v-if="form.uploaded_thumbnail">
           <div
             class="basis-3/12"
           >
-            <RoomImage :image-url="form.thumbnail.image_url" :has-delete-button="true" />
+            <RoomImage :image-url="form.uploaded_thumbnail.image_url" :has-delete-button="true" @delete="deleteThumbnail(form.uploaded_thumbnail)" />
           </div>
         </div>
       </div>
       
       <div class="mb-6">
         <BreezeLabel for="sub_images" value="サブ画像" />
-        <BreezeInputFile @input="form.sub_images = $event.target.files" id="sub_images" multiple  accept=".jpg, .jpeg, .png" :disabled="(form.uploaded_sub_images.length + form.sub_images.length) === 8"/>
-        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">8枚までアップロード可能</div>
+        <BreezeInputFile @change="setSubImages" id="sub_images" multiple  accept=".jpg, .jpeg, .png" :disabled="(Number(form.uploaded_sub_images.length) + Number(form.sub_images.length)) >= 8"/>
+        <div class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="user_avatar_help">{{8 - Number(form.uploaded_sub_images.length)}}枚アップロード可能です。</div>
 
         <div class="flex flex-wrap mt-4 mb-12" v-if="form.uploaded_sub_images.length">
           <div
             v-for="image in form.uploaded_sub_images"
             :key="image.id"
             class="basis-3/12"
-            @click="deleteSubImage(image.id)"
           >
-            <RoomImage :image-url="image.image_url" :has-delete-button="true" />
+            <RoomImage :image-url="image.image_url" :has-delete-button="true" @delete="deleteSubImage(image.id)" />
           </div>
         </div>
       </div>

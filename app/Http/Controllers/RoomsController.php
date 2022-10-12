@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Room\CreateRequest;
+use App\Http\Requests\Room\UpdateRequest;
 use App\Models\Room;
 use Inertia\Inertia;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -58,8 +59,9 @@ class RoomsController extends Controller
         return redirect()->route('rooms.index');
     }
 
-    public function update(CreateRequest $request, ImageService $imageService)
+    public function update(UpdateRequest $request, ImageService $imageService)
     {
+        dd($request->all());
         DB::transaction(
             function () use ($request, $imageService) {
                 $room = RoomService::getRoomDetail($request->route('id'));
