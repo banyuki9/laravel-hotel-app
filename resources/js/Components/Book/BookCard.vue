@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineEmits, defineProps } from 'vue'
+import { ref, defineEmits, defineProps, onMounted } from 'vue'
 
 const props = defineProps({
   room: Object,
@@ -30,13 +30,29 @@ const emit = defineEmits(['registerBookData'])
 const registerBookData = (roomTotalAmount, planId) => {
   emit('registerBookData', roomTotalAmount, planId)
 }
+const url = location.protocol + "//" + location.host;
+const thumbnail = ref("");
+const getThumbnail = () => {
+  props.room.images.some((image) => {
+    if (image.is_thumbnail == 1) {
+      thumbnail.value = image.image_url;
+    }
+  });
+};
+onMounted(() => {
+  getThumbnail();
+});
 </script>
 
 <template>
-<div class="container mt-10 mx-auto p-4 md:p-0">
+<div class="container mt-10 mx-auto p-4 md:p-0" :class="{hidden: !room.plans.length}">
   <div class="shadow-lg flex flex-wrap w-full lg:w-4/5 mx-auto">
-    
-    <div class="bg-cover bg-bottom border w-full md:w-1/3 h-64 md:h-auto relative" style="background-image:url('https://images7.alphacoders.com/347/347549.jpg')">
+
+    <div class="bg-cover bg-bottom border w-full md:w-1/3 h-64 md:h-auto relative" :style="{
+          'background-image': `url(${
+            url + thumbnail
+          })`,
+        }">
       <div class="absolute text-xl">
         <i class="fa fa-heart text-white hover:text-red-light ml-4 mt-4 cursor-pointer"></i>
       </div>
