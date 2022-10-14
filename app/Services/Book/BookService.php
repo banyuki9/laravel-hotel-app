@@ -23,7 +23,6 @@ class BookService
       'child_number' => $book['child'],
       'total_amount' => $book['roomTotalAmount'],
       'stripe_id' => $request->stripeData['id'],
-      'checkin_status' => false,
       'has_credit_card' => $request->hasCreditCard,
       'book_code' => $book_code,
       'checkin_at' => Carbon::parse($book['start']),
@@ -83,5 +82,41 @@ class BookService
     $request->session()->forget('book');
     $request->session()->forget('bookUrl');
     $request->session()->forget('customerData');
+  }
+
+  public function getTodayCheckInBook(Request $request)
+  {
+    $today = Carbon::today();
+    $query = Book::query();
+    if ($request->checkinStatus) {
+      $query->where('checkin_status', '=', true);
+    } else {
+      $query->where('checkin_status', '=', false);
+    }
+    
+    if ($request->bookCode) {
+      $query->where('book_code', '=', $request->bookCode);
+    }
+
+    $books = $query->with(['plan', 'plan.room'])->where('checkin_at', '=', $today)->paginate(10);
+    return $books;
+  }
+
+  public function getTodayCheckOutBook(Request $request)
+  {
+    $today = Carbon::today();
+    $query = Book::query();
+    if ($request->checkoutStatus) {
+      $query->where('checkout_status', '=', true);
+    } else {
+      $query->where('checkout_status', '=', false);
+    }
+
+    if ($request->bookCode) {
+      $query->where('book_code', '=', $request->bookCode);
+    }
+
+    $books = $query->with(['plan', 'plan.room'])->where('checkout_at', '=', $today)->paginate(10);
+    return $books;
   }
 }

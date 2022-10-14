@@ -17,6 +17,7 @@ const destroy = () => {
     form.delete(route("rooms.destroy", form.id));
   }
 };
+console.log(props.room);
 
 const getThumbnail = () => {
   props.room.images.some((image) => {
