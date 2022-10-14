@@ -123,6 +123,14 @@ class BookController extends Controller
         return redirect()->route('book.user-book-show',['user_id' => $book->user_id, 'book_code' => $book->book_code]);
     }
 
+    public function checkOutBook(Request $request)
+    {
+        $book = Book::where('id', '=', $request->book_id)->firstOrFail();
+        $book->checkout_status = true;
+        $book->save();
+        return redirect()->route('book.user-book-show',['user_id' => $book->user_id, 'book_code' => $book->book_code]);
+    }
+
     function checkInBookIndex(Request $request, BookService $bookService)
     {
         $books = $bookService->getTodayCheckInBook($request);

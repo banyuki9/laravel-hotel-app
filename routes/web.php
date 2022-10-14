@@ -53,6 +53,7 @@ Route::get('/book/complete/{id}', [App\Http\Controllers\BookController::class, '
 Route::get('/book/{user_id}', [App\Http\Controllers\BookController::class, 'userBookIndex'])->middleware(['auth', 'verified', 'correctUserId'])->name('book.user-books');
 Route::get('/book/{user_id}/{book_code}', [App\Http\Controllers\BookController::class, 'userBookShow'])->middleware(['auth', 'verified', 'correctUserId'])->name('book.user-book-show');
 Route::post('/book/checkin', [App\Http\Controllers\BookController::class, 'checkInBook'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('book.checkin');
+Route::post('/book/checkout', [App\Http\Controllers\BookController::class, 'checkOutBook'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('book.checkout');
 Route::get('/checkin', [App\Http\Controllers\BookController::class, 'checkInBookIndex'])->name('book.checkin-index');
 Route::get('/checkout', [App\Http\Controllers\BookController::class, 'checkOutBookIndex'])->name('book.checkout-index');
 
