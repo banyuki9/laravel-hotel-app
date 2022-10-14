@@ -14,7 +14,7 @@ class DashboardfController extends Controller
     {
         $today = Carbon::today();
         return Inertia::render('Dashboard', [
-            'rooms' => Room::orderBy('created_at', 'desc')->take(2)->get(),
+            'rooms' => Room::with('images')->orderBy('created_at', 'desc')->take(2)->get(),
             'checkin_book' => Book::with(['plan', 'plan.room'])->where('checkin_at', '=', $today)->take(4)->get(),
             'checkout_book' => Book::with(['plan', 'plan.room'])->where('checkout_at', '=', $today)->take(4)->get(),
         ]);

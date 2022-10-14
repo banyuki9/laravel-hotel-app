@@ -15,6 +15,6 @@ class RoomService
    */
   public static function getRoomDetail($room_id)
   {
-    return Room::where('id', $room_id)->firstOrFail();
+    return Room::where('id', $room_id)->with('images')->firstOrFail();
   }
 }

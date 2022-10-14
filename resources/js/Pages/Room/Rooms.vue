@@ -2,8 +2,9 @@
 import Pagination from "@/Components/Pagination.vue";
 import RoomCard from "@/Components/Room/RoomCard.vue";
 import CommonLayout from "@/Layouts/Common.vue";
-import { Head } from "@inertiajs/inertia-vue3";
+import { Head, usePage } from "@inertiajs/inertia-vue3";
 const props = defineProps(["rooms"]);
+const user = usePage().props.value.auth.user;
 </script>
 
 <template>
@@ -15,7 +16,7 @@ const props = defineProps(["rooms"]);
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
           客室一覧
         </h2>
-        <a :href="route('rooms.create')" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-sm">
+        <a :href="route('rooms.create')" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-sm" v-if="user&&user.role===0">
           追加
         </a>
       </div>

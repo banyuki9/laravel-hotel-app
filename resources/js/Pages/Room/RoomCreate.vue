@@ -12,8 +12,9 @@ const form = useForm({
   max_capacity: '',
   bed_type: '',
   facilities: '',
-  main_image: '',
+  thumbnail: null,
   sub_images: [],
+  uploaded_sub_images: [],
 });
 const buttonText = "登録する"
 
