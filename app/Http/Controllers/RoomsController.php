@@ -61,7 +61,6 @@ class RoomsController extends Controller
 
     public function update(UpdateRequest $request, ImageService $imageService)
     {
-        dd($request->all());
         DB::transaction(
             function () use ($request, $imageService) {
                 $room = RoomService::getRoomDetail($request->route('id'));

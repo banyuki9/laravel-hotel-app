@@ -3,6 +3,8 @@ import CommonLayout from "@/Layouts/Common.vue";
 import EditForm from '@/Components/Room/Form.vue'
 import { Head, useForm, defineProps } from "@inertiajs/inertia-vue3";
 import { ref, onMounted } from "vue";
+import { Inertia } from "@inertiajs/inertia";
+
 const props = defineProps(["room"]);
 
 const thumbnail = ref("");
@@ -39,8 +41,10 @@ onMounted(() => {
 
 const buttonText = "更新する"
 const update = () => {
-  console.log(form)
-    form.patch(route('rooms.update', props.room.id))
+    Inertia.post(route('rooms.update', props.room.id), {
+        _method: 'patch',
+        ...form
+    })
 };
 
 </script>
