@@ -32,7 +32,7 @@ class ImageService
     $imageModel->link = $image->hashName();
     $imageModel->room_id = $room_id;
     $imageModel->is_thumbnail = $is_thumbnail;
-    $imageModel->order = $index;
+    $imageModel->order = Image::where('room_id', '=', $room_id)->max('order') + 1;
     $imageModel->save();
   }
 

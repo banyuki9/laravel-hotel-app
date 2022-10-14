@@ -65,14 +65,14 @@ class RoomsController extends Controller
             function () use ($request, $imageService) {
                 $room = RoomService::getRoomDetail($request->route('id'));
                 $room->update($request->all());
-                $imageService->saveRoomThumbnail($request->thumbnail, $room->id);
-                $imageService->saveRoomSubImages($request->sub_images, $room->id);
-
                 if($request->delete_images) {
                     foreach($request->delete_images as $delete_image) {
                         $imageService->deleteImage($delete_image);
                     }
                 }
+                $imageService->saveRoomThumbnail($request->thumbnail, $room->id);
+                $imageService->saveRoomSubImages($request->sub_images, $room->id);
+
             }
         );
         return redirect()->route('rooms.show', $request->route('id'));

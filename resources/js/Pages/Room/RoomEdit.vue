@@ -15,7 +15,7 @@ const form = useForm({
   min_capacity: props.room.min_capacity,
   max_capacity: props.room.max_capacity,
   bed_type: props.room.bed_type,
-  facilities: props.room.bed_type,
+  facilities: props.room.facilities,
   thumbnail: null,
   sub_images: [],
   uploaded_thumbnail: null,

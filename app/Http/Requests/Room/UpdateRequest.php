@@ -64,6 +64,6 @@ class UpdateRequest extends FormRequest
 
     public function getThumbnailValidation()
     {
-        if ($this->isUploadedThumbnail()) return 'nullable'; return 'image|mimes:jpeg,png,jpg,gif|max:2048';
+        if ($this->isUploadedThumbnail()) return 'nullable'; return 'required|image|mimes:jpeg,png,jpg,gif|max:2048';
     }
 }

@@ -81,7 +81,7 @@ const setSubImages = (e) => {
         <BreezeTextarea id="facilities" v-model="form.facilities"/>
         <BreezeInputError class="mt-2" :message="form.errors.facilities" />
       </div>
-      
+
       <div class="mb-6">
         <BreezeLabel for="thumbnail" value="アイキャッチ画像" />
         <BreezeInputFile @input="form.thumbnail = $event.target.files[0]" id="thumbnail" accept=".jpg, .jpeg, .png" v-if="!form.uploaded_thumbnail"/>
