@@ -22,7 +22,8 @@ return new class extends Migration
             $table->integer('child_number');
             $table->integer('total_amount');
             $table->string('stripe_id');
-            $table->boolean('checkin_status');
+            $table->boolean('checkin_status')->default(false);
+            $table->boolean('checkout_status')->default(false);
             $table->boolean('has_credit_card');
             $table->string('book_code', 16);
             $table->date('checkin_at');

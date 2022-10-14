@@ -19,14 +19,14 @@ class BookController extends Controller
         $bookService->saveBookUrl($request);
         $query = Room::query();
 
+        if ($request->adult) {
+            $query->where('max_capacity', '>=', ($request->adult + $request->child));
+        }
         $termDays = Book::getTermDays($request->startDate, $request->endDate);
         $holidaysCount = Book::getHolidaysCount($termDays);
         $rooms = $query->latest()->with('plans')->paginate(10);
         $guests = Book::getGuestNumbers($request->adult, $request->child);
 
-        if ($request->adult) {
-            $query->where('max_capacity', '>=', ($request->adult + $request->child));
-        }
 
         return Inertia::render('Book/Books', [
             'rooms' => $rooms,
@@ -112,6 +112,46 @@ class BookController extends Controller
 
         return Inertia::render('Book/UserBookDetail', [
             'book' => $book,
+        ]);  
+    }
+
+    public function checkInBook(Request $request)
+    {
+        $book = Book::where('id', '=', $request->book_id)->firstOrFail();
+        $book->checkin_status = true;
+        $book->save();
+        return redirect()->route('book.user-book-show',['user_id' => $book->user_id, 'book_code' => $book->book_code]);
+    }
+
+    public function checkOutBook(Request $request)
+    {
+        $book = Book::where('id', '=', $request->book_id)->firstOrFail();
+        $book->checkout_status = true;
+        $book->save();
+        return redirect()->route('book.user-book-show',['user_id' => $book->user_id, 'book_code' => $book->book_code]);
+    }
+
+    function checkInBookIndex(Request $request, BookService $bookService)
+    {
+        $books = $bookService->getTodayCheckInBook($request);
+
+        return Inertia::render('Book/CheckInBookIndex', [
+            'books' => $books,
+            'today' => Carbon::today()->toDateString(),
+            'checkinStatus' => $request->checkinStatus ? $request->checkinStatus : 0,
+            'bookCode' => $request->bookCode ? $request->bookCode : "",
+        ]);  
+    }
+
+    function checkOutBookIndex(Request $request, BookService $bookService)
+    {
+        $books = $bookService->getTodayCheckOutBook($request);
+
+        return Inertia::render('Book/CheckOutBookIndex', [
+            'books' => $books,
+            'today' => Carbon::today()->toDateString(),
+            'checkoutStatus' => $request->checkoutStatus ? $request->checkoutStatus : 0,
+            'bookCode' => $request->bookCode ? $request->bookCode : "",
         ]);  
     }
 
