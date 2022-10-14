@@ -36,7 +36,7 @@ const toggleCheckoutBook = () => {
                 <Link :href="route('rooms.index')" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-sm">客室一覧</Link>
             </div>
           <div class="mx-auto flex flex-wrap justify-between">
-            <RoomCard v-for="room in rooms" :key="room.id" :room="room" class="basis-[48%] " />
+            <RoomCard v-for="room in rooms" :key="room.id" :room="room" class="basis-[48%] room-card" />
           </div>
         </div>
       </div>
@@ -98,7 +98,7 @@ const toggleCheckoutBook = () => {
 </template>
 
 <style scoped>
-.rooms-card {
+.room-card {
     width: 48% ;
     flex-basis: 48%;
 }
