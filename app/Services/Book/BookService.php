@@ -23,7 +23,6 @@ class BookService
       'child_number' => $book['child'],
       'total_amount' => $book['roomTotalAmount'],
       'stripe_id' => $request->stripeData['id'],
-      'checkin_status' => false,
       'has_credit_card' => $request->hasCreditCard,
       'book_code' => $book_code,
       'checkin_at' => Carbon::parse($book['start']),
@@ -83,5 +82,12 @@ class BookService
     $request->session()->forget('book');
     $request->session()->forget('bookUrl');
     $request->session()->forget('customerData');
+  }
+
+  public function getTodayCheckInBook()
+  {
+    $today = Carbon::today();
+    $books = Book::with(['plan', 'plan.room'])->where('checkin_at', '=', $today)->paginate(10);
+    return $books;
   }
 }

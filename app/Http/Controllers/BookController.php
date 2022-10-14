@@ -115,4 +115,22 @@ class BookController extends Controller
         ]);  
     }
 
+    public function checkInBook(Request $request)
+    {
+        $book = Book::where('id', '=', $request->book_id)->firstOrFail();
+        $book->checkin_status = true;
+        $book->save();
+        return redirect()->route('book.user-book-show',['user_id' => $book->user_id, 'book_code' => $book->book_code]);
+    }
+
+    function checkInBookIndex(Request $request, BookService $bookService)
+    {
+        $books = $bookService->getTodayCheckInBook();
+
+        return Inertia::render('Book/CheckInBookIndex', [
+            'books' => $books,
+            'today' => Carbon::today()->toDateString()
+        ]);  
+    }
+
 }

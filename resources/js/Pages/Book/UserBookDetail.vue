@@ -1,7 +1,17 @@
 <script setup>
-import { Head, defineProps } from "@inertiajs/inertia-vue3"
+import { usePage, Head, defineProps, useForm } from "@inertiajs/inertia-vue3"
 import CommonLayout from "@/Layouts/Common.vue";
 const props = defineProps(['book'])
+const user = usePage().props.value.auth.user;
+
+const checkInForm = useForm({
+  book_id: props.book.id
+})
+console.log(props.book);
+
+const checkIn = () => {
+  checkInForm.post(route('book.checkin'))
+}
 </script>
 
 <template>
@@ -115,6 +125,12 @@ const props = defineProps(['book'])
 
 
       </div>
+
+      <form class="flex items-center justify-center mt-14" v-if="user.role === 0&&!book.checkin_status" @submit.prevent="checkIn">
+        <button class="checkin-button text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-5 py-2.5 mr-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 text-center max-w-[250px] w-full font-semibold text-xl">
+          チェックイン
+        </button>
+      </form>
     </div>
 
 

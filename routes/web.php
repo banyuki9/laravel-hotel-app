@@ -52,6 +52,8 @@ Route::post('/book', [App\Http\Controllers\StripePaymentsController::class, 'pay
 Route::get('/book/complete/{id}', [App\Http\Controllers\BookController::class, 'complete'])->middleware(['auth', 'verified'])->name('book.complete');
 Route::get('/book/{user_id}', [App\Http\Controllers\BookController::class, 'userBookIndex'])->middleware(['auth', 'verified', 'correctUserId'])->name('book.user-books');
 Route::get('/book/{user_id}/{book_code}', [App\Http\Controllers\BookController::class, 'userBookShow'])->middleware(['auth', 'verified', 'correctUserId'])->name('book.user-book-show');
+Route::post('/book/checkin', [App\Http\Controllers\BookController::class, 'checkInBook'])->middleware(['auth', 'verified', 'can:isAdmin'])->name('book.checkin');
+Route::get('/checkin', [App\Http\Controllers\BookController::class, 'checkInBookIndex'])->name('book.checkin-index');
 
 
 require __DIR__.'/auth.php';

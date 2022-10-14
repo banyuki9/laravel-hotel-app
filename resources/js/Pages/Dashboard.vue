@@ -65,8 +65,8 @@ const toggleCheckoutBook = () => {
 
                 <UserBookCard class="py-3 sm:py-4" v-for="book in checkin_book" :key="book.id" :book="book">
                 </UserBookCard>
-                <Link :href="route('rooms.index')" class="mt-8 ml-auto bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-sm">もっと見る</Link>
             </ul>
+            <Link :href="route('book.checkin-index')" class="mt-8 ml-auto bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-sm">もっと見る</Link>
         </div> 
         <div class="mb-6">
             <div class="flex justify-between items-center mb-8">
