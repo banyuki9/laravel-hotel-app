@@ -80,7 +80,7 @@ const toggleCheckoutBook = () => {
                         </div>
                         <div class="up-arrow" v-else>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                             </svg>
                         </div>
                     </div>
@@ -90,6 +90,7 @@ const toggleCheckoutBook = () => {
                 <UserBookCard class="py-3 sm:py-4" v-for="book in checkout_book" :key="book.id" :book="book">
                 </UserBookCard>
             </ul>
+            <Link :href="route('book.checkout-index')" class="mt-8 ml-auto bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow text-sm">もっと見る</Link>
         </div> 
       </div>
     </div>

@@ -101,4 +101,22 @@ class BookService
     $books = $query->with(['plan', 'plan.room'])->where('checkin_at', '=', $today)->paginate(10);
     return $books;
   }
+
+  public function getTodayCheckOutBook(Request $request)
+  {
+    $today = Carbon::today();
+    $query = Book::query();
+    if ($request->checkoutStatus) {
+      $query->where('checkout_status', '=', true);
+    } else {
+      $query->where('checkout_status', '=', false);
+    }
+
+    if ($request->bookCode) {
+      $query->where('book_code', '=', $request->bookCode);
+    }
+
+    $books = $query->with(['plan', 'plan.room'])->where('checkout_at', '=', $today)->paginate(10);
+    return $books;
+  }
 }

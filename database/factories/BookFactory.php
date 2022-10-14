@@ -31,8 +31,8 @@ class BookFactory extends Factory
             'stripe_id' => 'xxxxxxxxxxxxxxxx',
             'has_credit_card' => true,
             'book_code' => $bookService->createBookCode(),
-            'checkin_at' => Carbon::today(),
-            'checkout_at' => Carbon::tomorrow(),
+            'checkin_at' => Carbon::yesterday(),
+            'checkout_at' => Carbon::today(),
             'booked_at' => Carbon::yesterday(),
         ];
     }

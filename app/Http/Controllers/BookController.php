@@ -135,4 +135,16 @@ class BookController extends Controller
         ]);  
     }
 
+    function checkOutBookIndex(Request $request, BookService $bookService)
+    {
+        $books = $bookService->getTodayCheckOutBook($request);
+
+        return Inertia::render('Book/CheckOutBookIndex', [
+            'books' => $books,
+            'today' => Carbon::today()->toDateString(),
+            'checkoutStatus' => $request->checkoutStatus ? $request->checkoutStatus : 0,
+            'bookCode' => $request->bookCode ? $request->bookCode : "",
+        ]);  
+    }
+
 }
