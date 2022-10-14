@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\Book\indexRequest;
+use App\Http\Requests\Book\CheckOutBookIndexRequest;
+use App\Http\Requests\Book\CheckInBookIndexRequest;
 use App\Http\Requests\Book\CreateCustomerDataRequest;
 use App\Services\Plan\PlanService;
 use App\Models\Room;
@@ -131,7 +133,7 @@ class BookController extends Controller
         return redirect()->route('book.user-book-show',['user_id' => $book->user_id, 'book_code' => $book->book_code]);
     }
 
-    function checkInBookIndex(Request $request, BookService $bookService)
+    function checkInBookIndex(CheckInBookIndexRequest $request, BookService $bookService)
     {
         $books = $bookService->getTodayCheckInBook($request);
 
@@ -143,7 +145,7 @@ class BookController extends Controller
         ]);  
     }
 
-    function checkOutBookIndex(Request $request, BookService $bookService)
+    function checkOutBookIndex(CheckOutBookIndexRequest $request, BookService $bookService)
     {
         $books = $bookService->getTodayCheckOutBook($request);
 
