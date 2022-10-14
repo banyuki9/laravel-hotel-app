@@ -19,14 +19,14 @@ class BookController extends Controller
         $bookService->saveBookUrl($request);
         $query = Room::query();
 
+        if ($request->adult) {
+            $query->where('max_capacity', '>=', ($request->adult + $request->child));
+        }
         $termDays = Book::getTermDays($request->startDate, $request->endDate);
         $holidaysCount = Book::getHolidaysCount($termDays);
         $rooms = $query->latest()->with('plans')->paginate(10);
         $guests = Book::getGuestNumbers($request->adult, $request->child);
 
-        if ($request->adult) {
-            $query->where('max_capacity', '>=', ($request->adult + $request->child));
-        }
 
         return Inertia::render('Book/Books', [
             'rooms' => $rooms,
@@ -125,11 +125,13 @@ class BookController extends Controller
 
     function checkInBookIndex(Request $request, BookService $bookService)
     {
-        $books = $bookService->getTodayCheckInBook();
+        $books = $bookService->getTodayCheckInBook($request);
 
         return Inertia::render('Book/CheckInBookIndex', [
             'books' => $books,
-            'today' => Carbon::today()->toDateString()
+            'today' => Carbon::today()->toDateString(),
+            'checkinStatus' => $request->checkinStatus ? $request->checkinStatus : 0,
+            'bookCode' => $request->bookCode ? $request->bookCode : "",
         ]);  
     }
 

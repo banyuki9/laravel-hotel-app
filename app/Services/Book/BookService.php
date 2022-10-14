@@ -84,10 +84,21 @@ class BookService
     $request->session()->forget('customerData');
   }
 
-  public function getTodayCheckInBook()
+  public function getTodayCheckInBook(Request $request)
   {
     $today = Carbon::today();
-    $books = Book::with(['plan', 'plan.room'])->where('checkin_at', '=', $today)->paginate(10);
+    $query = Book::query();
+    if ($request->checkinStatus) {
+      $query->where('checkin_status', '=', true);
+    } else {
+      $query->where('checkin_status', '=', false);
+    }
+    
+    if ($request->bookCode) {
+      $query->where('book_code', '=', $request->bookCode);
+    }
+
+    $books = $query->with(['plan', 'plan.room'])->where('checkin_at', '=', $today)->paginate(10);
     return $books;
   }
 }
