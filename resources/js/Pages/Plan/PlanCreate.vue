@@ -14,9 +14,7 @@ const form = useForm({
 const buttonText = "追加する"
 
 const submit = () => {
-    form.post(route('plan.store', props.room.id), {
-        onFinish: () => form.reset(),
-    })
+    form.post(route('plan.store', props.room.id))
 };
 </script>
 
