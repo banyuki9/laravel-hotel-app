@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="basis-1/3 mb-5">
+  <div class="basis-1/3 mb-5 overflow-hidden rounded">
     <div
       class="
         max-w-sm

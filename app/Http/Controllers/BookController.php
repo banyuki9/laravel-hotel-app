@@ -26,7 +26,7 @@ class BookController extends Controller
         }
         $termDays = Book::getTermDays($request->startDate, $request->endDate);
         $holidaysCount = Book::getHolidaysCount($termDays);
-        $rooms = $query->latest()->with(['plans', 'images'])->paginate(10);
+        $rooms = $query->with(['plans', 'images'])->latest()->paginate(10)->withQueryString();
         $guests = Book::getGuestNumbers($request->adult, $request->child);
 
 
