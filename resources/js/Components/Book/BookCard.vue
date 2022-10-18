@@ -78,7 +78,7 @@ onMounted(() => {
 
           <div class="plan_wrapper flex justify-between flex-wrap mt-6 w-full ">
             <p v-if="!room.plans.length">予約できるプランはありません</p>
-            <div class="plan block p-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700  basis-1/2 mb-4" v-for="plan in room.plans" :key="plan.id">
+            <div class="plan block p-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700  basis-[49%] mb-4" v-for="plan in room.plans" :key="plan.id">
               <h5 class="mb-2 text-sm tracking-tight text-gray-900 dark:text-white font-semibold">{{plan.title}}</h5>
               <p class="font-normal text-gray-700 dark:text-gray-400 mb-5 text-sm">
                 <span class="plan_detail">{{plan.plan_detail}}</span>

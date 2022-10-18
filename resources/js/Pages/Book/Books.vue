@@ -71,7 +71,9 @@ const isEmptyFormErrors = (obj) => {
       >
       </BookCard>
 
+      <Pagination :links="rooms.links" class="flex justify-center my-8"/>
     </div>
+
   </CommonLayout>
 
 </template>

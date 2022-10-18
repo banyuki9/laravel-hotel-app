@@ -98,7 +98,7 @@ class BookService
       $query->where('book_code', '=', $request->bookCode);
     }
 
-    $books = $query->with(['plan', 'plan.room'])->where('checkin_at', '=', $today)->paginate(10);
+    $books = $query->with(['plan', 'plan.room'])->where('checkin_at', '=', $today)->paginate(10)->withQueryString();
     return $books;
   }
 
@@ -116,7 +116,7 @@ class BookService
       $query->where('book_code', '=', $request->bookCode);
     }
 
-    $books = $query->with(['plan', 'plan.room'])->where('checkout_at', '=', $today)->paginate(10);
+    $books = $query->with(['plan', 'plan.room'])->where('checkout_at', '=', $today)->paginate(10)->withQueryString();
     return $books;
   }
 }
